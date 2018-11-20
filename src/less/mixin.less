@@ -1,0 +1,33 @@
+.opacity(@number){
+  /* older safari/Chrome browsers */
+  -webkit-opacity: @number/100;
+  /* Netscape and Older than Firefox 0.9 */
+  -moz-opacity: @number/100;
+  /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+  -khtml-opacity: @number/100;
+  /* IE9 + etc...modern browsers */
+  opacity: @number/100;
+  /* IE 4-9 */
+  filter:alpha(opacity=@number);
+  /*This works in IE 8 & 9 too*/
+  -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=@number);
+  /*IE4-IE9*/
+  filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=@number);
+
+}
+.reset(){
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.hide(){
+  visibility: hidden;
+  opacity: 0;
+  transition-property: visibility,opacity;
+  transition-duration: 0.3s;
+}
+.show(){
+  visibility: visible;
+  opacity: 1;
+}
