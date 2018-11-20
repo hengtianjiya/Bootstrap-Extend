@@ -36,7 +36,6 @@ class Select {
 		this.$input.off('input.bs.select.input');
 		this.$input.on('input.bs.select.input propertychange.bs.select.input', function () {
 			let _val = $(this).val();
-			console.log(_val)
 			_this.input = _val;
 			if (_val.length) {
 				_this.hidePlace.call(_this);
@@ -135,7 +134,7 @@ class Select {
 
 		this.$element
 			.one('bsTransitionEnd', $.proxy(complete, this))
-			.emulateTransitionEnd();
+			.emulateTransitionEnd(Select.TRANSITION_DURATION);
 
 		this.checkStatus();
 	}
@@ -167,7 +166,7 @@ class Select {
 
 		this.$element
 			.one('bsTransitionEnd', $.proxy(complete, this))
-			.emulateTransitionEnd();
+			.emulateTransitionEnd(Select.TRANSITION_DURATION);
 
 		this.checkStatus();
 	}
@@ -219,18 +218,15 @@ $(document)
 			.trigger('focus.bs.select.data-api');
 	})
 	.on('focus.bs.select.data-api blur.bs.select.data-api', '[data-toggle="select"] .be-select-trigger', function (e) {
-		console.log(e)
 		var $this = $(this);
 		$(e.target).toggleClass('hide', /^focus(out)?$/.test(e.type));
 		if (e.type == 'focusout') {
 			var $target = $.beGetParent($this.closest('[data-toggle="select"]'));
 			var data = $target.data('bs.select');
 			if (data) {
-				console.log(999888777)
 				setTimeout(function () {
-					console.log(9999)
 					Plugin.call($target, 'blur');
-				}, 300)
+				}, 160)
 			}
 		}
 	})
