@@ -2,7 +2,7 @@ exports.config = {
     devHost: "127.0.0.1",
     devPort: "8899",
     devPath: "http://127.0.0.1:8899",
-    proPath: "/bhehr_pc/dist/js",
+    proPath: "/dist/js",
     cssDistPath: "./dist/css",
     cssSrcPath: "./src/less",
     cssDistFileName: "dist/css",
@@ -20,6 +20,6 @@ exports.config = {
     htmlDistFileName: "views",
     htmlSrcFileName: "src/html",
     fileTypeReg: /(.*)\.((js)|(css))$/,
-    buildJsFileReg: /(\/bhehr_pc\/dist\/)(.*)\/(.*)\.(js)/g,
-    buildCssFileReg: /(\/bhehr_pc\/dist\/)(.*)\/(.*)\.(css)/g
+    buildJsFileReg: /(\/dist\/)(.*)\/(.*)\.(js)/g,
+    buildCssFileReg: /(\/dist\/)(.*)\/(.*)\.(css)/g
 } 
