@@ -218,6 +218,32 @@ ul {
 .be-select .be-select-dropdown .be-select-dropdown-hint:hover {
   background-color: #fff;
 }
+.be-upload {
+  position: relative;
+}
+.be-upload .be-upload-trigger {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  font-size: 1000px;
+  z-index: 1999;
+  /* older safari/Chrome browsers */
+  -webkit-opacity: 0;
+  /* Netscape and Older than Firefox 0.9 */
+  -moz-opacity: 0;
+  /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+  -khtml-opacity: 0;
+  /* IE9 + etc...modern browsers */
+  opacity: 0;
+  /* IE 4-9 */
+  filter: alpha(opacity=0);
+  /*This works in IE 8 & 9 too*/
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  /*IE4-IE9*/
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
 .be-expansion-controller .iconfont:before {
   content: "\e870";
   -webkit-transition: opacity 0.2s;
