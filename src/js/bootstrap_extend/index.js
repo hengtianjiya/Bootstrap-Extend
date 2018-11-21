@@ -1,5 +1,6 @@
 import Expansion from './expansion.js';
 import Select from './select.js';
+import Upload from './upload.js';
 
 class Common {
     constructor() {
@@ -40,7 +41,6 @@ class Common {
 new Common();
 
 $('.be-menu-submenu-wrapper').on('expand.bs.expansion narrow.bs.collapse', function (e) {
-    console.log(e)
     if ($('#J_navigation').attr('aria-expanded') == 'false') {
         e.preventDefault();
     }

@@ -20,7 +20,7 @@ class Select {
 	bindEvent() {
 		var _this = this;
 		this.$dropdown.off('click.bs.select.item');
-		this.$dropdown.on('click.bs.select.item', '.be-select-dropdown-item', function () {
+		this.$dropdown.on('click.bs.select.item', '.be-select-dropdown-item', function (e) {
 			var $this = $(this);
 			_this.$chosedvalue = $this.data('value');
 			_this.$chosedcontent = $(this).text();
@@ -32,6 +32,7 @@ class Select {
 				}
 			});
 			_this.$element.trigger(selectEvent);
+			e.preventDefault();
 		})
 		this.$input.off('input.bs.select.input');
 		this.$input.on('input.bs.select.input propertychange.bs.select.input', function () {

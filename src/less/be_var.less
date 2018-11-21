@@ -4,19 +4,26 @@
 //theme-color
 
 //layout
+@black:#000;
+@white:#fff;
 @iconfont-size: 12px;
+@select-border-color: #d9d9d9;
+@select-hover-border:#40a9ff;
+@select-border-radius: 4px;
+@select-dropdown-hint-color:lighten(#000, 85%);
+
 //--sidebar
 @sidebar-width:256px;
 
 
 //--header
 @header-height:64px;
-@header-light-bg:#ffffff;
+@header-light-bg:@white;
 
 //--menu
 @menu-dark-color: #A6A6A6;
 @menu-dark-hover-bg: #1890ff;
-@menu-dark-hover-color: #ffffff;
+@menu-dark-hover-color: @white;
 @menu-font-size:14px;
 @menu-dark-bg:#001529;
 @menu-dark-sub-bg: #000C17;
@@ -53,15 +60,19 @@
 @select-padding-left: 11px;
 @select-padding-right: 11px;
 @select-padding-bottom: 0;
-@select-border-color: #d9d9d9;
-@select-border-radius: 4px;
-@be-select-dropdown-bg: #fff;
-@be-select-hover-border:#40a9ff;
-@be-select-dropdown-index:1;
-@be-select-dropdown-item-color: lighten(#000, 35%);
-@be-select-dropdown-item-hover-color: #e6f7ff;
-@be-select-dropdown-item-selected-color: #fafafa;
-@be-select-dropdown-shadow: lighten(#000, 90%);
+@select-dropdown-bg: @white;
+@select-dropdown-index:11;
+@select-dropdown-item-color: lighten(#000, 35%);
+@select-dropdown-item-hover-color: #e6f7ff;
+@select-dropdown-item-selected-color: #fafafa;
+@select-dropdown-shadow: lighten(#000, 90%);
+
+//--upload
+@upload-color: #1890FF;
+@upload-icon-font-size:48px;
+@upload-text-font-size:16px;
+@upload-hint-font-size:14px;
+@upload-index:10;
 
 //--logo-area
 @logo-area-height:64px;

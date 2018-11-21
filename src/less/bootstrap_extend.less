@@ -69,7 +69,7 @@ ul{
     padding: @select-padding;
     border: 1px solid @select-border-color;
     border-radius: @select-border-radius;
-    background-color: #fff;
+    background-color: @white;
     transition-property: border-color,box-shadow;
     transition-duration: 0.5s;
     .be-select-place{
@@ -133,15 +133,15 @@ ul{
     &.blur{
         .be-select-place{
             &.be-select-place-chosed{
-                color: @be-select-dropdown-item-color;
+                color: @select-dropdown-item-color;
             }
         }
     }
     &:hover{
-        border-color: @be-select-hover-border;
+        border-color: @select-hover-border;
     }
     &.hover{
-        border-color: @be-select-hover-border;
+        border-color: @select-hover-border;
         outline: 0;
         -webkit-box-shadow: 0 0 0 2px rgba(24,144,255,.2);
         box-shadow: 0px 0px 0px 2px rgba(24,144,255,0.2);
@@ -163,12 +163,12 @@ ul{
         top: 100%;
         left: 0;
         margin-top: 1px;
-        background-color: @be-select-dropdown-bg;
-        -webkit-box-shadow: 0 2px 8px @be-select-dropdown-shadow;
-        box-shadow: 0 2px 8px @be-select-dropdown-shadow;
+        background-color: @select-dropdown-bg;
+        -webkit-box-shadow: 0 2px 8px @select-dropdown-shadow;
+        box-shadow: 0 2px 8px @select-dropdown-shadow;
         border-radius: 4px;
         overflow: hidden;
-        z-index: @be-select-dropdown-index;
+        z-index: @select-dropdown-index;
         .be-select-dropdown-item,
         .be-select-dropdown-hint{
             position: relative;
@@ -176,7 +176,7 @@ ul{
             padding: 5px 12px;
             line-height: 22px;
             font-weight: 400;
-            color: @be-select-dropdown-item-color;
+            color: @select-dropdown-item-color;
             white-space: nowrap;
             cursor: pointer;
             overflow: hidden;
@@ -184,20 +184,20 @@ ul{
             -webkit-transition: background .3s ease;
             transition: background .3s ease;
             &:hover{
-                background-color: @be-select-dropdown-item-hover-color;
+                background-color: @select-dropdown-item-hover-color;
             }
             &.be-select-dropdown-item-selected{
-                background-color: @be-select-dropdown-item-selected-color;
+                background-color: @select-dropdown-item-selected-color;
                 font-weight: 600;
-                color: @be-select-dropdown-item-color;
+                color: @select-dropdown-item-color;
             }
         }
         .be-select-dropdown-hint{
-            color:lighten(#000, 85%);
-            background-color: #fff;
+            color:@select-dropdown-hint-color;
+            background-color: @white;
             cursor: not-allowed;
             &:hover{
-                background-color: #fff;
+                background-color: @white;
             }
         }
     }
@@ -205,6 +205,9 @@ ul{
 //----upload
 .be-upload{
     position: relative;
+    border-radius: @select-border-radius;
+    background-color: @white;
+    width: 384px;
     .be-upload-trigger{
         position: absolute;
         width: 100%;
@@ -212,8 +215,58 @@ ul{
         left: 0;
         top: 0;
         font-size: 1000px;
-        z-index: 1999;
+        z-index: @upload-index;
         .opacity(0);
+    }
+    &:hover{
+        .be-upload-indirector{
+            border-color: @select-hover-border;
+        }
+    }
+    .be-upload-indirector{
+        border: 1px dashed @select-border-color;
+        transition-property: border-color;
+        transition-duration: 0.5s;
+        >div{
+            
+        }
+        .be-upload-hint-wrapper{
+            height:195px;
+            padding: 40px 16px;
+        }
+        .be-upload-result-wrapper{
+            height:195px;
+            line-height: 195px;
+            position: relative;
+            text-align: center;
+            img{
+                max-height: 195px;
+                max-width: 380px;
+            }
+        }
+        p{
+            text-align: center;
+        }
+        .be-upload-icon{
+            color:@upload-color;
+            line-height: 1;
+            .icon{
+                font-size: 48px;
+            }
+            margin-bottom: 20px;
+        }
+        .be-upload-text{
+            color: @black;
+            font-size: @upload-text-font-size;
+            margin-bottom: 4px;
+            line-height: 24px;
+        }
+        .be-upload-hint{
+            margin-bottom: 0;
+            color: @select-dropdown-hint-color;
+            font-size: @upload-hint-font-size;
+            line-height: 21px;
+        }
     }
 }
 //----menu
