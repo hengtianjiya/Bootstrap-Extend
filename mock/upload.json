@@ -1,0 +1,7 @@
+{
+    "Api_Tools_getSocketUrl": {
+        "errcode": 0,
+        "message": "",
+        "data": "http://192.168.0.54:2120"
+    }
+}

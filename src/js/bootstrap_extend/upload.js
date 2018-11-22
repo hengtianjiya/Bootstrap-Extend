@@ -13,6 +13,9 @@ class Upload {
     }
 
     preupload() {
+        this.$element.trigger($.Event('process.bs.upload', {
+            ele: this.$element
+        }))
         if (!window.FileReader) {
             this.traditionUpload();
         } else {
@@ -21,11 +24,47 @@ class Upload {
     }
 
     traditionUpload() {
+        let _this = this;
+        let _name = _this.options.name;
+        let _url = _this.options.url;
+        let $iframe = $(`<iframe name="${_name}" />`);
+        let $form = $(`<form method="post" style="display:none" target="${_name}" action="${_url}" name="form_${_name}" enctype="multipart/form-data" />`);
 
+        _this.$trigger.appendTo($form);
+        $(document.body).append($iframe).append($form);
+        let formatResult = _this.formatRegExp(_this.$trigger.val());
+
+        if (formatResult) {
+            $form.submit();
+            console.log(9999);
+
+            _this.$trigger.val('');
+        } else {
+            _this.$element.trigger($.Event('loaderror.bs.upload', {
+                errorMessage: '您上传文件的格式不符合规则哦！'
+            }))
+            _this.$trigger.appendTo(_this.$element);
+            _this.$trigger.val('');
+            $iframe.remove();
+            $form.remove();
+        }
+
+        $iframe.load(function () {
+            let data = $(this).contents().find('body').html();
+            console.log(963);
+            console.log(data);
+            _this.$trigger.appendTo(_this.$element);
+            $iframe.remove();
+            $form.remove();
+
+            _this.$element.trigger($.Event('success.bs.upload', {
+                responseData: data,
+                ele: _this.$element
+            }))
+        })
     }
 
     upload() {
-        console.log(this.options.e.target.files)
         let _this = this;
         let arr = [];
         let file = arr.concat(_this.filter(_this.options.e.target.files));
@@ -46,10 +85,60 @@ class Upload {
                     file: file,
                     ele: _this.$element
                 }))
+                _this.processUpload(file);
                 _this.index++;
                 _this.readFile.call(_this);
             }
             reader.readAsDataURL(file);
+        }
+    }
+
+    processUpload(file) {
+        let _this = this;
+        let xhr = new XMLHttpRequest();
+        let formData = new FormData();
+        if (xhr.upload) {
+            xhr.upload.addEventListener('progress', function (e) {
+                var progress = Math.round(e.loaded / e.total * 100);
+                _this.$element.trigger($.Event('onprogress.bs.upload', {
+                    file: file,
+                    progress: progress,
+                    ele: _this.$element
+                }))
+            }, false);
+
+            xhr.onreadystatechange = function (e) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        _this.$element.trigger($.Event('success.bs.upload', {
+                            file: file,
+                            responseData: $.parseJSON(xhr.responseText),
+                            ele: _this.$element
+                        }))
+                    }
+                    _this.fileLen--;
+                    if (_this.fileLen <= 0) {
+                        _this.$element.trigger($.Event('complete.bs.upload', {
+                            file: file,
+                            ele: _this.$element
+                        }))
+                        _this.fileLen = [];
+                        _this.index = 0;
+                        _this.$trigger.val('');
+                    } else {
+                        _this.$element.trigger($.Event('failure.bs.upload', {
+                            file: file,
+                            ele: _this.$element
+                        }))
+                        _this.fileLen = [];
+                        _this.index = 0;
+                        _this.$trigger.val('');
+                    }
+                };
+            };
+            formData.append("file", file);
+            xhr.open("POST", _this.options.url, true);
+            xhr.send(formData);
         }
     }
 

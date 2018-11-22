@@ -37,6 +37,9 @@ class Common {
             .toggleClass(classout, !isOpen)
             .attr('aria-expanded', isOpen);
     }
+    removeTags() {
+
+    }
 }
 new Common();
 
@@ -48,4 +51,12 @@ $('.be-menu-submenu-wrapper').on('expand.bs.expansion narrow.bs.collapse', funct
 
 $('.be-select').on('selected.bs.select', function (e) {
     console.log(e.selectData)
+})
+
+$('.be-upload').on('success.bs.upload', function (data) {
+    console.log(data)
+})
+
+$('.be-upload').on('error.bs.upload', function (data) {
+    console.log(data)
 })
