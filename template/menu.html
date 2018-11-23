@@ -1,0 +1,60 @@
+{% for(var i = 0; i < this.data.length; i++){ %}
+    {% if(this.data[i].has_sub==0){ %} 
+    <li class="be-menu-item" role="menuitem"
+        data-id="{%=this.data[i].menu_id%}">
+        <div class="be-menu-item-content">
+            <i class="icon iconfont icon-desktop"></i>
+            <span>
+                {%=this.data[i].title%}
+            </span>
+        </div>
+    </li>
+    {% }else{ %}
+    <li class="be-menu-submenu" role="menuitem">
+        <div class="be-menu-submenu-title " data-oritation="horizen" aria-expanded="true" data-toggle="expansion"
+            data-narrow-dimension="0" data-target="#J_submenu{%=this.data[i].menu_id%}" aria-expanded="true" data-id="{%=this.data[i].menu_id%}">
+            <div class="be-menu-item-content">
+                <i class="icon iconfont icon-desktop"></i>
+                <span>
+                    {%=this.data[i].title%}
+                </span>
+            </div>
+        </div>
+        <ul class="be-menu-submenu-wrapper be-expansion expand in pull-oh" id="J_submenu{%=this.data[i].menu_id%}" role="menu">
+            {% for(var j = 0; j < this.data[i].sub_menu.length; j++){ %} 
+                {% if(this.data[i].sub_menu[j].has_sub == 0){ %}
+                <li class="be-menu-item" role="menuitem" data-id="{%=this.data[i].sub_menu[j].menu_id%}">
+                    <div class="be-menu-item-content">
+                        <span>
+                            {%=this.data[i].sub_menu[j].title%}
+                        </span>
+                    </div>
+                </li>
+                {% } else { %}
+                <li class="be-menu-submenu" role="menuitem" data-id="{%=this.data[i].sub_menu[j].menu_id%}">
+                    <div class="be-menu-submenu-title " data-oritation="horizen" aria-expanded="true" data-toggle="expansion"
+                        data-narrow-dimension="0" data-target="#J_submenu{%=this.data[i].menu_id%}" aria-expanded="true">
+                        <div class="be-menu-item-content">
+                            <span>
+                                {%=this.data[i].sub_menu[j].title%}
+                            </span>
+                        </div>
+                    </div>
+                    <ul class="be-menu-submenu-wrapper be-expansion expand in pull-oh" id="J_submenu{%=this.data[i].menu_id%}" role="menu">
+                        {% for(var l = 0; l < this.data[i].sub_menu[j].sub_menu.length; l++){ %} 
+                        <li class="be-menu-item" role="menuitem" data-id="{%=this.data[i].sub_menu[j].sub_menu[l].menu_id%}">
+                            <div class="be-menu-item-content">
+                                <span>
+                                    {%=this.data[i].sub_menu[j].sub_menu[l].title%}
+                                </span>
+                            </div>
+                        </li>
+                        {% } %}
+                    </ul>
+                </li>
+                {% } %}
+            {% } %}
+        </ul>
+    </li>
+    {% } %}
+{% } %}

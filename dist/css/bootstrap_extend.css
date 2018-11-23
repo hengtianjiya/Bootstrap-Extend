@@ -302,10 +302,10 @@ ul {
 }
 .be-expansion-controller .iconfont:before {
   content: "\e870";
-  -webkit-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  -moz-transition: opacity 0.2s;
-  transition: opacity 0.2s;
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  transition: opacity 0.3s;
   /* older safari/Chrome browsers */
   -webkit-opacity: 1;
   /* Netscape and Older than Firefox 0.9 */
@@ -394,10 +394,10 @@ ul {
 .be-menu .be-menu-item,
 .be-menu .be-menu-submenu-title {
   cursor: pointer;
-  -webkit-transition: color 0.5s;
-  -o-transition: color 0.5s;
-  -moz-transition: color 0.5s;
-  transition: color 0.5s;
+  -webkit-transition: color 0.3s;
+  -o-transition: color 0.3s;
+  -moz-transition: color 0.3s;
+  transition: color 0.3s;
 }
 .be-menu .be-menu-item:hover,
 .be-menu .be-menu-submenu-title:hover {
@@ -479,10 +479,6 @@ ul {
 }
 .be-navigation .be-menu-item .be-menu-item-content .iconfont,
 .be-navigation .be-menu-submenu-title .be-menu-item-content .iconfont {
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
   margin-right: 8px;
 }
 .be-navigation .be-menu-item-content span,

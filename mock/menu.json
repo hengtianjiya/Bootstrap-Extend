@@ -1,0 +1,88 @@
+{
+    "data": [
+        {
+            "menu_id": 1000,
+            "title": "主面板",
+            "path_name": "index",
+            "has_sub": "0"
+        },
+        {
+            "menu_id": 2000,
+            "title": "职位\/简历",
+            "path_name": "job",
+            "has_sub": "1",
+            "sub_menu": [
+                {
+                    "menu_id": 2001,
+                    "title": "发布职位 ",
+                    "path_name": "jobadd",
+                    "has_sub": "0"
+                },
+                {
+                    "menu_id": 2002,
+                    "title": "职位管理",
+                    "path_name": "jobindex",
+                    "has_sub": "0"
+                },
+                {
+                    "menu_id": 2003,
+                    "title": "查简历",
+                    "path_name": "jobresume",
+                    "has_sub": "0"
+                }
+            ]
+        },
+        {
+            "menu_id": 3000,
+            "title": "招聘会管理",
+            "path_name": "fair",
+            "has_sub": "1",
+            "sub_menu": [
+                {
+                    "menu_id": 3001,
+                    "title": "预定展位",
+                    "path_name": "fairapply",
+                    "has_sub": "0"
+                },
+                {
+                    "menu_id": 3002,
+                    "title": "展位管理",
+                    "path_name": "fairindex",
+                    "has_sub": "0"
+                },
+                {
+                    "menu_id": 3003,
+                    "title": "简章管理",
+                    "path_name": "faircatalogindex",
+                    "has_sub": "0"
+                }
+            ]
+        },
+        {
+            "menu_id": 4000,
+            "title": "企业中心",
+            "path_name": "company",
+            "has_sub": "1",
+            "sub_menu": [
+                {
+                    "menu_id": 4001,
+                    "title": "企业中心",
+                    "path_name": "companyindex",
+                    "has_sub": "0"
+                },
+                {
+                    "menu_id": 4002,
+                    "title": "个人中心",
+                    "path_name": "companyauth",
+                    "has_sub": "0"
+                },
+                {
+                    "menu_id": 4003,
+                    "title": "修改密码",
+                    "path_name": "companypassword",
+                    "has_sub": "0"
+                }
+            ]
+        }
+    ]
+}

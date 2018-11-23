@@ -42,28 +42,38 @@ class Common {
     }
 }
 new Common();
+$(document).ready(function () {
+    $('.be-menu-submenu-wrapper').on('expand.bs.expansion narrow.bs.collapse', function (e) {
+        if ($('#J_navigation').attr('aria-expanded') == 'false') {
+            e.preventDefault();
+        }
+    })
 
-$('.be-menu-submenu-wrapper').on('expand.bs.expansion narrow.bs.collapse', function (e) {
-    if ($('#J_navigation').attr('aria-expanded') == 'false') {
-        e.preventDefault();
-    }
-})
+    $('.be-select').on('selected.bs.select', function (e) {
+        console.log(e.selectData)
+    })
+    $('.be-upload').on('success.bs.upload', function (data) {
+        console.log('success');
+        console.log(data)
+    })
 
-$('.be-select').on('selected.bs.select', function (e) {
-    console.log(e.selectData)
-})
-$('.be-upload').on('success.bs.upload', function (data) {
-    console.log('success');
-    console.log(data)
-})
+    $('.be-upload').on('process.bs.upload', function (data) {
+        console.log('process');
+        console.log(data)
+    })
 
-$('.be-upload').on('process.bs.upload', function (data) {
-    console.log('process');
-    console.log(data)
-})
+    $('.be-upload').on('error.bs.upload', function (data) {
+        console.log(data)
+    })
 
-$('.be-upload').on('error.bs.upload', function (data) {
-    console.log(data)
-})
+    $('[data-toggle="tooltip"]').tooltip()
 
-$('[data-toggle="tooltip"]').tooltip()
+    $.get(
+        '/mock/menu.json',
+        function (result) {
+            $.beUtil.parseTmpl('/template/menu.html', result, function (html) {
+                $('#J_menu').append(html);
+            });
+        }
+    )
+})
