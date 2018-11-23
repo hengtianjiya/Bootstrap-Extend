@@ -65,3 +65,5 @@ $('.be-upload').on('process.bs.upload', function (data) {
 $('.be-upload').on('error.bs.upload', function (data) {
     console.log(data)
 })
+
+$('[data-toggle="tooltip"]').tooltip()
