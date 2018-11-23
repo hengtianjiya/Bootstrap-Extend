@@ -52,8 +52,13 @@ $('.be-menu-submenu-wrapper').on('expand.bs.expansion narrow.bs.collapse', funct
 $('.be-select').on('selected.bs.select', function (e) {
     console.log(e.selectData)
 })
-
 $('.be-upload').on('success.bs.upload', function (data) {
+    console.log('success');
+    console.log(data)
+})
+
+$('.be-upload').on('process.bs.upload', function (data) {
+    console.log('process');
     console.log(data)
 })
 

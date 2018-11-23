@@ -36,8 +36,6 @@ class Upload {
 
         if (formatResult) {
             $form.submit();
-            console.log(9999);
-
             _this.$trigger.val('');
         } else {
             _this.$element.trigger($.Event('loaderror.bs.upload', {
@@ -51,14 +49,12 @@ class Upload {
 
         $iframe.load(function () {
             let data = $(this).contents().find('body').html();
-            console.log(963);
-            console.log(data);
             _this.$trigger.appendTo(_this.$element);
             $iframe.remove();
             $form.remove();
 
             _this.$element.trigger($.Event('success.bs.upload', {
-                responseData: data,
+                responseData: $.parseJSON(data),
                 ele: _this.$element
             }))
         })
