@@ -540,4 +540,153 @@ ul{
     }
 }
 
+//alert
+
+.be-alert{
+    position: fixed;
+    z-index: @alert-index;
+    left:50%; 
+    margin:auto;
+    width: 300px;
+    margin-left: -150px;
+    height: auto;
+    max-height: 200px;
+    padding : @alert-padding;
+    .alert-content{
+        white-space: normal;
+        word-break: break-all;
+    }
+    &:before{
+        font-family: "iconfont" !important;
+        font-size: 14px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;   
+        top: 8.5px;
+        left: 16px;
+        position: absolute;
+    }
+    &.alert-success{
+        color: @font-clor;
+        background-color:@alert-success-bg;
+        border-color: @alert-success-border;
+        &:before{
+            color: @alert-success-icon;
+            content: @icon-success;
+        }
+    }
+    &.alert-danger{
+        color: @font-clor;
+        background-color:@alert-danger-bg;
+        border-color: @alert-danger-border;
+        &:before{
+            color: @alert-danger-icon;
+            content: @icon-danger;
+        }
+    }
+    &.alert-warning{
+        color: @font-clor;
+        background-color:@alert-warning-bg;
+        border-color: @alert-warning-border;
+        &:before{
+            color: @alert-warning-icon;
+            content: @icon-warning;
+        }
+    }
+}
+.alert-dismissable .close, 
+.alert-dismissible .close{
+    top: 0px;
+    right: 0px;
+    outline: none;
+}
+//button
+.btn{
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    &:active,
+    &:focus,
+    &:hover,
+    &:visited,
+    &:active&:focus{
+        outline: none;
+    }
+    &.be-btn-primary{
+        background-color: @primary-bg;
+        border-color:@primary-border;
+        color: @primary-color;
+        &:hover{
+            background-color: @primary-bg-hover;
+            border-color:@primary-border-hover;
+            color: @primary-color-hover;
+        }
+        &:active,
+        &:hover&:active{
+            background-color: @primary-bg-active;
+            border-color:@primary-border-active;
+            color: @primary-color-active;
+        }
+    }
+}
+
+//animation
+
+@-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+
+  @-webkit-keyframes slideInDown {
+    from {
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+  
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes slideInDown {
+    from {
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+  
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .slideInDown {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+  }
+  .animated.faster {
+    -webkit-animation-duration: 500ms;
+    animation-duration: 500ms;
+  }
 

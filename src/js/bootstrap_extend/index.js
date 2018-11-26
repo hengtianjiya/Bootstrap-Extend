@@ -1,6 +1,7 @@
 import Expansion from './expansion.js';
 import Select from './select.js';
 import Upload from './upload.js';
+import Toast from './toast.js';
 
 class Common {
     constructor() {
@@ -76,4 +77,26 @@ $(document).ready(function () {
             });
         }
     )
+
+    $('#J_toast').on('click', function () {
+        $.beToast('This is a default toast!')
+    })
+    $('#J_Success').on('click', function () {
+        $.beToast_success({
+            message: 'This is a successful toast',
+            auto_close: false
+        })
+    })
+    $('#J_Danger').on('click', function () {
+        $.beToast_danger({
+            message: 'This is a danger toast',
+            auto_close: false
+        })
+    })
+    $('#J_Warning').on('click', function () {
+        $.beToast_warning({
+            message: 'This is a warning toast',
+            auto_close: false
+        })
+    })
 })

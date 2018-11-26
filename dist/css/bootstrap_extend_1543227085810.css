@@ -605,3 +605,190 @@ ul {
 .be-navigation.narrowed .be-menu-submenu > .be-menu-submenu-wrapper .be-menu-item-content:after {
   top: 0;
 }
+.be-alert {
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  margin: auto;
+  width: 300px;
+  margin-left: -150px;
+  height: auto;
+  max-height: 200px;
+  padding: 8px 15px 8px 37px;
+}
+.be-alert .alert-content {
+  white-space: normal;
+  word-break: break-all;
+}
+.be-alert:before {
+  font-family: "iconfont" !important;
+  font-size: 14px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  top: 8.5px;
+  left: 16px;
+  position: absolute;
+}
+.be-alert.alert-success {
+  color: #595959;
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+}
+.be-alert.alert-success:before {
+  color: #52c41a;
+  content: "\e89a";
+}
+.be-alert.alert-danger {
+  color: #595959;
+  background-color: #fff1f0;
+  border-color: #ffa39e;
+}
+.be-alert.alert-danger:before {
+  color: #f5222d;
+  content: "\e89e";
+}
+.be-alert.alert-warning {
+  color: #595959;
+  background-color: #fffbe6;
+  border-color: #ffe58f;
+}
+.be-alert.alert-warning:before {
+  color: #faad14;
+  content: "\e89f";
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  top: 0px;
+  right: 0px;
+  outline: none;
+}
+.btn {
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.btn:active,
+.btn:focus,
+.btn:hover,
+.btn:visited,
+.btn:active.btn:focus {
+  outline: none;
+}
+.btn.be-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  color: #fff;
+}
+.btn.be-btn-primary:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+  color: #fff;
+}
+.btn.be-btn-primary:active,
+.btn.be-btn-primary:hover.btn.be-btn-primary:active {
+  background-color: #096dd9;
+  border-color: #096dd9;
+  color: #fff;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  -moz-animation-name: fadeIn;
+    -o-animation-name: fadeIn;
+       animation-name: fadeIn;
+}
+@-webkit-keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@-moz-keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    -moz-transform: translate3d(0, -100%, 0);
+         transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+         transform: translate3d(0, 0, 0);
+  }
+}
+@-o-keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    -moz-transform: translate3d(0, -100%, 0);
+         transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+         transform: translate3d(0, 0, 0);
+  }
+}
+.slideInDown {
+  -webkit-animation-name: slideInDown;
+  -moz-animation-name: slideInDown;
+    -o-animation-name: slideInDown;
+       animation-name: slideInDown;
+}
+.animated.faster {
+  -webkit-animation-duration: 500ms;
+  -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+       animation-duration: 500ms;
+}
+
+/*# sourceMappingURL=bootstrap_extend_1543227085810.css.map */
