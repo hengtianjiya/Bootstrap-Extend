@@ -610,6 +610,10 @@ ul{
     &:active&:focus{
         outline: none;
     }
+    &.active, 
+    &:active{
+        box-shadow:none;
+    }
     &.be-btn-primary{
         background-color: @primary-bg;
         border-color:@primary-border;
@@ -625,6 +629,57 @@ ul{
             border-color:@primary-border-active;
             color: @primary-color-active;
         }
+    }
+    &.be-btn-default,
+    &.be-btn-dashed{
+        background-color: @default-bg;
+        border-color:@default-border;
+        color: @default-color;
+        &:hover{
+            background-color: @default-bg-hover;
+            border-color:@default-border-hover;
+            color: @default-color-hover;
+        }
+        &:active,
+        &:hover&:active{
+            background-color: @default-bg-active;
+            border-color:@default-border-active;
+            color: @default-color-active;
+        }
+    }
+    &.be-btn-danger{
+        background-color: @danger-bg;
+        border-color:@danger-border;
+        color: @danger-color;
+        &:hover{
+            background-color: @danger-bg-hover;
+            border-color:@danger-border-hover;
+            color: @danger-color-hover;
+        }
+        &:active,
+        &:hover&:active{
+            background-color: @danger-bg-active;
+            border-color:@danger-border-active;
+            color: @danger-color-active;
+        }
+    }
+    &.disabled,
+    &:disabled,
+    &[disabled],
+    &[disabled="disabled"]{
+        background-color: @disabled-bg!important;
+        border-color:@disabled-border!important;
+        color: @disabled-color!important;
+        &:hover,
+        &:active,
+        &:hover&:active{
+            background-color: @disabled-bg!important;
+            border-color:@disabled-border!important;
+            color: @disabled-color!important;
+        }
+    }
+    &.be-btn-dashed{
+        border-style: dashed;
     }
 }
 
