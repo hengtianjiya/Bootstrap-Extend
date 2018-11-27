@@ -1,5 +1,7 @@
 import tmpl from './tmpl.js';
 import parseTmpl from './parseTmpl.js';
+import path from './router.js';
+
 
 var util = {
     tmpl: tmpl,
@@ -7,6 +9,7 @@ var util = {
 }
 window.util = util;
 $.extend({
-    beUtil: util
+    beUtil: util,
+    bePath: new path()
 });
 export default util;

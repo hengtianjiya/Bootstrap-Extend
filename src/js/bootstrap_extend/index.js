@@ -99,4 +99,14 @@ $(document).ready(function () {
             auto_close: false
         })
     })
+    var path = $.bePath.setPathReg('/path/:path/user/:user?')
+    $('#J_one').on('click', function () {
+        path.toPath({ path: 456 });
+    })
+    $('#J_two').on('click', function () {
+        path.toPath({ path: 456, user: 789 });
+    })
+    $(window).on('beRouteUpdate', function (e) {
+        console.log(e.pathObj)
+    })
 })
