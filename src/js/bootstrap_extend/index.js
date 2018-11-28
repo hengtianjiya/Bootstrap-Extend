@@ -100,7 +100,8 @@ $(document).ready(function () {
             auto_close: false
         })
     })
-    var path = $.bePath.setPathReg('/path/:path/user/:user?')
+    var path = $.bePath.setPathReg('/path/:path/user/:user?');
+    console.log(path.pathObj)
     $('#J_one').on('click', function () {
         path.toPath({ path: 456 });
     })
@@ -110,4 +111,11 @@ $(document).ready(function () {
     $(window).on('beRouteUpdate', function (e) {
         console.log(e.pathObj)
     })
+    $('[data-page="pagination"]').pagination();
+    $('[data-page="pagination"]').on('change.bs.pagination', function(e){
+        if(e.current){
+            console.log(e.current)
+        }
+    })
+
 })

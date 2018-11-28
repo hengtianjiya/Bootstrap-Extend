@@ -2,10 +2,9 @@ class Pagination {
     constructor(element, options) {
         this.$element = $(element);
         this.options = $.extend({}, Pagination.DEFAULTS, options);
-        this.total = this.options.total;
-        this.size = this.options.size;
-        this.current = this.options.current;
-        this.page = Math.ceil(this.total / this.size);
+        this.total = parseInt(this.options.total);
+        this.size = parseInt(this.options.size);
+        this.current = parseInt(this.options.current);
         this.lengthMid = Math.floor(this.options.itemLength / 2);
         this.$prev = this.$element.find(this.options.prev);
         this.$next = this.$element.find(this.options.next);
@@ -22,16 +21,7 @@ class Pagination {
 
     init() {
         var min, max;
-        if (this.current == 1) {
-            this.prevShow = false;
-        } else {
-            this.prevShow = true;
-        }
-        if (this.current == this.page) {
-            this.nextShow = false;
-        } else {
-            this.nextShow = true;
-        }
+        this.page = Math.ceil(this.total / this.size);
         if (this.page <= 2) {
             min = max = 0;
             this.jumpPrevShow = this.jumpNextShow = this.prevShow = this.nextShow = this.itemWarpShow = this.selectShow = this.inputShow = false;
@@ -43,26 +33,33 @@ class Pagination {
         } else if (this.page > 2 && this.page <= this.options.itemLength + 2) {
             min = 2;
             max = this.page - 1;
-            this.jumpPrevShow = this.jumpNextShow = this.prevShow = this.nextShow = false;
+            this.jumpPrevShow = this.jumpNextShow = false;
             this.lastShow = this.selectShow = this.itemWarpShow = this.inputShow = true;
+            this.prevShow = this.current == 1 ? false : true;
+            this.nextShow = this.current == this.page ? false : true;
         } else {
-            if (this.current - this.lengthMid <= 2) {
-                min = 2;
-                this.jumpPrevShow = this.prevShow = false;
+            if (this.current - this.lengthMid <= 2) {                min = 2;
+                max = min + this.options.itemLength - 1;
+                this.jumpPrevShow = false;
             } else {
                 min = this.current - this.lengthMid;
-                this.jumpPrevShow = this.prevShow = true;
+                this.jumpPrevShow = true;
             }
 
             if (this.current + this.lengthMid >= this.page - 1) {
                 max = this.page - 1;
-                this.jumpNextShow = this.nextShow = false;
+                min = max - this.options.itemLength + 1;
+                this.jumpNextShow = false;
             } else {
-                max = this.current + this.lengthMid;
-                this.jumpNextShow = this.nextShow = true;
+                max = max ? max : this.current + this.lengthMid;
+                this.jumpNextShow = true;
             }
             this.lastShow = this.selectShow = this.itemWarpShow = this.inputShow = true;
+            this.prevShow = this.current == 1 ? false : true;
+            this.nextShow = this.current == this.page ? false : true;
+
         }
+
         this.min = min;
         this.max = max;
         this.checkStatus();
@@ -78,8 +75,12 @@ class Pagination {
         }
         this.$jumpPrev.toggle(this.jumpPrevShow);
         this.$jumpNext.toggle(this.jumpNextShow);
-        this.$prev.toggle(this.prevShow);
-        this.$next.toggle(this.nextShow);
+        this.$prev
+            .attr('aria-disabled', !this.prevShow)
+            .toggleClass('be-pagination-disabled', !this.prevShow);
+        this.$next
+            .attr('aria-disabled', !this.nextShow)
+            .toggleClass('be-pagination-disabled', !this.nextShow);
         this.$itemWrap.toggle(this.itemWarpShow);
         this.$select.toggle(this.selectShow);
         this.$input.toggle(this.inputShow);
@@ -108,15 +109,64 @@ class Pagination {
     bindEvent() {
         let _this = this;
         _this.$prev.off();
-        _this.$prev.on('click', function () {
-            _this.current = _this.current - 1;
-            _this.init.call(_this);
+        _this.$prev.on('click', function (e) {
+            if($(this).attr('aria-disabled') == 'true') return false;
+            change(_this.current - 1, _this, e);
         })
         _this.$next.off();
-        _this.$next.on('click', function () {
-            _this.current = _this.current + 1;
-            _this.init.call(_this);
+        _this.$next.on('click', function (e) {
+            if($(this).attr('aria-disabled') == 'true') return false; 
+            change(_this.current + 1, _this, e);
+
         })
+        _this.$jumpNext.off();
+        _this.$jumpNext.on('click', function (e) {
+            var cur = _this.current + _this.options.itemLength > _this.page ? _this.page : _this.current + _this.options.itemLength;
+            change(cur, _this, e);
+        })
+
+        _this.$jumpPrev.off();
+        _this.$jumpPrev.on('click', function (e) {
+            var cur = _this.current - _this.options.itemLength < 1 ? 1 : _this.current - _this.options.itemLength;
+            change(cur, _this, e);
+        })
+        _this.$first.add(_this.$last).off();
+        _this.$first.add(_this.$last).on('click', function(e){
+            var cur = $(this).attr('title');
+            change(cur, _this, e);
+        })
+        _this.$itemWrap.off();
+        _this.$itemWrap.on('click', '.be-pagination-item', function(e){
+            var cur = $(this).attr('title');
+            change(cur, _this, e);
+        })
+        _this.$select.find('.be-select').off();
+        _this.$select.find('.be-select').on('selected.bs.select', function(e){            
+            _this.size = parseInt(e.selectData.value);
+            _this.page = Math.ceil(_this.total / _this.size);
+            var cur = _this.current > _this.page ? _this.page : _this.current;
+            change(cur, _this, e);
+        })
+        _this.$input.off('blur', 'input');
+        _this.$input.on('blur', 'input', function(e){
+            var val = parseInt($(this).val());
+            if(isNaN(val) || val < 1){
+                val = 1;            
+            }else if( val > _this.page){
+                val = _this.page;
+            }
+            $(this).val(val);
+            change(val, _this, e);
+        })
+        function change(current, env, e){
+            env.current = parseInt(current);
+            env.init.call(env);
+            let changeEvent = $.Event('change.bs.pagination',{
+                current : env.current,
+                e : e
+            });
+            env.$element.trigger(changeEvent);
+        }
     }
 }
 
@@ -124,8 +174,8 @@ Pagination.VERSION = '1.0.0';
 Pagination.DEFAULTS = {
     prev: '.be-pagination-prev',
     next: '.be-pagination-next',
-    select: '.be-pagination-setsize .be-select',
-    input: '.be-pagination-options .be-input',
+    select: '.be-pagination-setsize',
+    input: '.be-pagination-options',
     jumpPrev: '.be-pagination-jump-prev',
     jumpNext: '.be-pagination-jump-next',
     first: '.be-pagination-first',

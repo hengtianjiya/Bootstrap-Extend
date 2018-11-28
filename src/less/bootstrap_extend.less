@@ -702,6 +702,19 @@ ul{
     .be-pagination-btn{
         border-radius: @p-radius;
         border: 1px solid @p-border-color;
+        &.be-pagination-disabled{
+            cursor: not-allowed;
+            .iconfont{
+                color: @p-border-color;
+            }
+            &:hover,
+            &:active,
+            &.active{
+                border-color: @p-border-color;
+                color: @p-border-color;
+            }
+
+        }
         .iconfont{
             font-size: 12px;
         }
@@ -734,6 +747,7 @@ ul{
                 }
             }
         }
+
     }
     .be-pagination-jump-prev{
         &:hover,
