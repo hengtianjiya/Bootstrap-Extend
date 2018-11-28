@@ -2,6 +2,7 @@ import Expansion from './expansion.js';
 import Select from './select.js';
 import Upload from './upload.js';
 import Toast from './toast.js';
+import Pagination from './pagination.js';
 
 class Common {
     constructor() {

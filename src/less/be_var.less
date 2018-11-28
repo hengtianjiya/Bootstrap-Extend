@@ -6,8 +6,10 @@
 //layout
 @black:#000;
 @white:#fff;
-@font-clor: lighten(#000, 35%);
+@font-color: lighten(#000, 35%);
+@black-75: lighten(#000, 75%);
 @iconfont-size: 12px;
+@hover-color: #1890ff;
 @select-border-color: #d9d9d9;
 @select-hover-border:#40a9ff;
 @select-border-radius: 4px;
@@ -20,6 +22,9 @@
 @icon-success: "\e89a";
 @icon-danger: "\e89e";
 @icon-warning: "\e89f";
+@icon-ellipsis: "\e887";
+@icon-doubleleft: "\e85c";
+@icon-doubleright: "\e85d";
 
 
 //--sidebar
@@ -32,7 +37,7 @@
 
 //--menu
 @menu-dark-color: #A6A6A6;
-@menu-dark-hover-bg: #1890ff;
+@menu-dark-hover-bg: @hover-color;
 @menu-dark-hover-color: @white;
 @menu-font-size:14px;
 @menu-dark-bg:#001529;
@@ -73,7 +78,7 @@
 @select-dropdown-shadow: lighten(#000, 90%);
 
 //--upload
-@upload-color: #1890FF;
+@upload-color: @hover-color;
 @upload-icon-font-size:48px;
 @upload-text-font-size:16px;
 @upload-hint-font-size:14px;
@@ -97,7 +102,7 @@
 @alert-warning-bg: #fffbe6;
 
 //--button
-@primary-bg: #1890ff;
+@primary-bg: @hover-color;
 @primary-color:@white;
 @primary-border: @primary-bg;
 @primary-bg-hover: #40a9ff;
@@ -108,8 +113,8 @@
 @primary-border-active: @primary-bg-active;
 
 @default-bg: @white;
-@default-color:@font-clor;
-@default-border: #d9d9d9;
+@default-color:@font-color;
+@default-border: @select-border-color;
 @default-bg-hover: @white;
 @default-color-hover: #40a9ff;
 @default-border-hover: @default-color-hover;
@@ -119,7 +124,7 @@
 
 @danger-bg:#f5f5f5;
 @danger-color:#f5222d;
-@danger-border: #d9d9d9;
+@danger-border: @select-border-color;
 @danger-bg-hover: #ff4d4f;
 @danger-color-hover: @white;
 @danger-border-hover: @danger-bg-hover;
@@ -127,6 +132,21 @@
 @danger-color-active: @white;
 @danger-border-active: @danger-bg-active;
 
-@disabled-color:lighten(#000, 75%);
+@disabled-color:@black-75;
 @disabled-bg:#f5f5f5;
-@disabled-border: #d9d9d9;
+@disabled-border: @select-border-color;
+
+//--pagination
+@min-width:32px;
+@p-height:32px;
+@p-margin-right:8px;
+@p-radius:4px;
+@p-border-color:@select-border-color;
+
+//--input
+@input-height: 32px;
+@input-font-size: 14px;
+@input-line-height: 1.5;
+@input-border-color:@select-border-color;
+@input-padding: 4px 11px;
+

@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="be-content" style="height: auto;overflow: visible; 
-            padding: 20px;">
+            padding: 20px; display:block;min-height: 2000px;">
                 <div>
                     <p>select</p>
                     <p>filterable</p>
@@ -119,6 +119,59 @@
                     <p>Router</p>    
                     <input class="btn btn-default be-btn-primary" type="button" id="J_one" value="Query with one parameter">
                     <input class="btn btn-default be-btn-primary" type="button" id="J_two" value="Query with two parameter">
+                </div>
+                <div>
+                    <p>Pagination</p>
+                    <ul class="pagination be-pagination" data-page="pagination" data-total="100" data-size="10" data-current="1" style="width:100%;">
+                        <li class="be-pagination-prev be-pagination-btn" aria-disabled="false">
+                            <i class="icon iconfont icon-left"></i>
+                        </li>
+                        <li class="be-pagination-first be-pagination-btn">
+                            
+                        </li>
+                        <li class="be-pagination-jump-prev">
+                            <i class="icon iconfont"></i>
+                        </li>
+                        <li class="be-pagination-item-wrapper">
+                            <ul>
+                            </ul>
+                        </li>
+                        <li class="be-pagination-jump-next">
+                            <i class="icon iconfont"></i>
+                        </li>
+                        <li class="be-pagination-last be-pagination-btn">
+                            
+                        </li>
+                        <li class="be-pagination-next be-pagination-btn" aria-disabled="false">
+                            <i class="icon iconfont icon-right"></i>
+                        </li>
+                        <li class="be-pagination-setsize">
+                            <div class="be-select blur" aria-expanded="false" role="application" style="width: 100px;">
+                                <div class="be-select-place be-select-place-default show">10条/页</div>
+                                <div class="be-select-place be-select-place-chosed hide"></div>
+                                <div class="be-select-trigger-input blur" data-toggle="select">
+                                    <input class="be-select-trigger hide" role="combobox" aria-autocomplete="inline" aria-owns="cb1-list"
+                                        autocomplete="off" type="button" />
+                                </div>
+                                <div class="be-select-arrow">
+                                    <i class="icon iconfont"></i>
+                                </div>
+                                <ul class="be-select-dropdown" aria-labelledby="iLabel" aria-hidden="true" role="listbox">
+                                    <li class="be-select-dropdown-item" role="option" aria-selected="false" title="10"
+                                        data-value="10">10条/页</li>
+                                    <li class="be-select-dropdown-item" role="option" aria-selected="false" title="20"
+                                        data-value="20">20条/页</li>
+                                    <li class="be-select-dropdown-item" role="option" aria-selected="false" title="30"
+                                        data-value="30">30条/页</li>
+                                    <li class="be-select-dropdown-item" role="option" aria-selected="false" title="40"
+                                        data-value="40">40条/页</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="be-pagination-options">
+                            <div class="be-pagination-options-quick-jumper">跳至<input class="be-input" type="text" value="">页</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

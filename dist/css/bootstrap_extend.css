@@ -281,7 +281,7 @@ ul {
   text-align: center;
 }
 .be-upload .be-upload-indirector .be-upload-icon {
-  color: #1890FF;
+  color: #1890ff;
   line-height: 1;
   margin-bottom: 20px;
 }
@@ -774,6 +774,109 @@ ul {
 }
 .btn.be-btn-dashed {
   border-style: dashed;
+}
+.be-pagination li {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 32px;
+  line-height: 32px;
+  height: 32px;
+  margin-right: 8px;
+  text-align: center;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  color: #595959;
+}
+.be-pagination .be-select-dropdown-item {
+  margin-right: 0;
+}
+.be-pagination .be-pagination-btn {
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  border: 1px solid #d9d9d9;
+}
+.be-pagination .be-pagination-btn .iconfont {
+  font-size: 12px;
+}
+.be-pagination .be-pagination-btn:hover,
+.be-pagination .be-pagination-btn:active,
+.be-pagination .be-pagination-btn.active {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+.be-pagination .be-pagination-jump-prev .iconfont:before,
+.be-pagination .be-pagination-jump-next .iconfont:before {
+  content: "\e887";
+  color: #bfbfbf;
+  font-size: 20px;
+  font-weight: bold;
+}
+.be-pagination .be-pagination-jump-prev:hover .iconfont,
+.be-pagination .be-pagination-jump-next:hover .iconfont,
+.be-pagination .be-pagination-jump-prev:active .iconfont,
+.be-pagination .be-pagination-jump-next:active .iconfont,
+.be-pagination .be-pagination-jump-prev.active .iconfont,
+.be-pagination .be-pagination-jump-next.active .iconfont {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.be-pagination .be-pagination-jump-prev:hover .iconfont:before,
+.be-pagination .be-pagination-jump-next:hover .iconfont:before,
+.be-pagination .be-pagination-jump-prev:active .iconfont:before,
+.be-pagination .be-pagination-jump-next:active .iconfont:before,
+.be-pagination .be-pagination-jump-prev.active .iconfont:before,
+.be-pagination .be-pagination-jump-next.active .iconfont:before {
+  color: #1890ff;
+  font-size: 12px;
+  font-weight: normal;
+}
+.be-pagination .be-pagination-jump-prev:hover .iconfont:before,
+.be-pagination .be-pagination-jump-prev:active .iconfont:before,
+.be-pagination .be-pagination-jump-prev.active .iconfont:before {
+  content: "\e85c";
+}
+.be-pagination .be-pagination-jump-next:hover .iconfont:before,
+.be-pagination .be-pagination-jump-next:active .iconfont:before,
+.be-pagination .be-pagination-jump-next .active .iconfont:before {
+  content: "\e85d";
+}
+.be-pagination .be-pagination-item-wrapper li:last-child {
+  margin-right: 0;
+}
+.be-pagination .be-pagination-options-quick-jumper .be-input {
+  width: 50px;
+  margin: 0 8px;
+}
+.be-pagination .be-select {
+  margin-right: 0;
+}
+.be-input {
+  outline: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  padding: 4px 11px;
+  height: 32px;
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid #d9d9d9;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.be-input:hover,
+.be-input:active {
+  border-color: #40a9ff;
 }
 @-webkit-keyframes fadeIn {
   from {
