@@ -111,11 +111,13 @@ $(document).ready(function () {
     $(window).on('beRouteUpdate', function (e) {
         console.log(e.pathObj)
     })
-    $('[data-page="pagination"]').pagination();
-    $('[data-page="pagination"]').on('change.bs.pagination', function(e){
-        if(e.current){
+    var page = $('[data-page="pagination"]').pagination();
+    $('[data-page="pagination"]').on('change.bs.pagination', function (e) {
+        if (e.current) {
             console.log(e.current)
+            console.log(e.pagesize)
         }
     })
-
+    console.log(page)
+    $('[data-page="pagination"]').pagination('go', 2)
 })

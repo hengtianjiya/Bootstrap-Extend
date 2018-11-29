@@ -38,7 +38,8 @@ class Pagination {
             this.prevShow = this.current == 1 ? false : true;
             this.nextShow = this.current == this.page ? false : true;
         } else {
-            if (this.current - this.lengthMid <= 2) {                min = 2;
+            if (this.current - this.lengthMid <= 2) {
+                min = 2;
                 max = min + this.options.itemLength - 1;
                 this.jumpPrevShow = false;
             } else {
@@ -105,17 +106,32 @@ class Pagination {
         }
         return el;
     }
+    parsePage(page) {
+        var val = parseInt(page);
+        if (isNaN(val) || val < 1) {
+            val = 1;
+        } else if (val > this.page) {
+            val = this.page;
+        }
+        return val;
+    }
+
+    go(page) {
+        var val = this.parsePage(page);
+        this.current = parseInt(val);
+        this.init();
+    }
 
     bindEvent() {
         let _this = this;
         _this.$prev.off();
         _this.$prev.on('click', function (e) {
-            if($(this).attr('aria-disabled') == 'true') return false;
+            if ($(this).attr('aria-disabled') == 'true') return false;
             change(_this.current - 1, _this, e);
         })
         _this.$next.off();
         _this.$next.on('click', function (e) {
-            if($(this).attr('aria-disabled') == 'true') return false; 
+            if ($(this).attr('aria-disabled') == 'true') return false;
             change(_this.current + 1, _this, e);
 
         })
@@ -131,41 +147,38 @@ class Pagination {
             change(cur, _this, e);
         })
         _this.$first.add(_this.$last).off();
-        _this.$first.add(_this.$last).on('click', function(e){
+        _this.$first.add(_this.$last).on('click', function (e) {
             var cur = $(this).attr('title');
             change(cur, _this, e);
         })
         _this.$itemWrap.off();
-        _this.$itemWrap.on('click', '.be-pagination-item', function(e){
+        _this.$itemWrap.on('click', '.be-pagination-item', function (e) {
             var cur = $(this).attr('title');
             change(cur, _this, e);
         })
         _this.$select.find('.be-select').off();
-        _this.$select.find('.be-select').on('selected.bs.select', function(e){            
+        _this.$select.find('.be-select').on('selected.bs.select', function (e) {
             _this.size = parseInt(e.selectData.value);
             _this.page = Math.ceil(_this.total / _this.size);
             var cur = _this.current > _this.page ? _this.page : _this.current;
             change(cur, _this, e);
         })
         _this.$input.off('blur', 'input');
-        _this.$input.on('blur', 'input', function(e){
-            var val = parseInt($(this).val());
-            if(isNaN(val) || val < 1){
-                val = 1;            
-            }else if( val > _this.page){
-                val = _this.page;
-            }
-            $(this).val(val);
+        _this.$input.on('blur', 'input', function (e) {
+            var val = _this.parsePage($(this).val());
             change(val, _this, e);
+            $(this).val(val);
         })
-        function change(current, env, e){
+        function change(current, env, e) {
             env.current = parseInt(current);
             env.init.call(env);
-            let changeEvent = $.Event('change.bs.pagination',{
-                current : env.current,
-                e : e
+            let changeEvent = $.Event('change.bs.pagination', {
+                current: env.current,
+                pagesize: env.size,
+                e: e
             });
             env.$element.trigger(changeEvent);
+            env.$input.find('input').val('');
         }
     }
 }
@@ -188,13 +201,13 @@ Pagination.DEFAULTS = {
 // Pagination PLUGIN DEFINITION
 // ==========================
 
-function Plugin(option) {
+function Plugin(option, param) {
     return this.each(function () {
         let $this = $(this);
         let data = $this.data('bs.pagination');
         let options = $.extend({}, Pagination.DEFAULTS, $this.data(), typeof option == 'object' && option);
         if (!data) $this.data('bs.pagination', (data = new Pagination(this, options)));
-        if (typeof option == 'string') data[option]();
+        if (typeof option == 'string') data[option](param);
     })
 }
 
