@@ -3,6 +3,7 @@ import Select from './select.js';
 import Upload from './upload.js';
 import Toast from './toast.js';
 import Pagination from './pagination.js';
+import Loading from './loading.js';
 
 class Common {
     constructor() {
@@ -111,13 +112,21 @@ $(document).ready(function () {
     $(window).on('beRouteUpdate', function (e) {
         console.log(e.pathObj)
     })
-    var page = $('[data-page="pagination"]').pagination();
+    $('[data-page="pagination"]').pagination();
     $('[data-page="pagination"]').on('change.bs.pagination', function (e) {
         if (e.current) {
             console.log(e.current)
             console.log(e.pagesize)
         }
     })
-    console.log(page)
-    $('[data-page="pagination"]').pagination('go', 2)
+
+    $('[data-page="pagination"]').pagination('go', 2);
+
+    var l = $.beLoading({ message: '加载中...' });
+    $('#J_loading').on('click', function () {
+        l.show();
+        setTimeout(function () {
+            l.hide();
+        }, 2000);
+    })
 })
