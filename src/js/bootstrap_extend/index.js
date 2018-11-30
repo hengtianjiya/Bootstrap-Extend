@@ -101,6 +101,7 @@ $(document).ready(function () {
             auto_close: false
         })
     })
+
     var path = $.bePath.setPathReg('/path/:path/user/:user?');
     console.log(path.pathObj)
     $('#J_one').on('click', function () {

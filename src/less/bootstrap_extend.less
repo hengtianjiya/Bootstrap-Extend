@@ -511,7 +511,7 @@ ul{
                 top: 0;
                 overflow: visible;
                 padding: @margin-narrow-top;
-                z-index:1;
+                z-index:1000;
                 .hide();
                 &:after{
                     content:'';
@@ -540,6 +540,120 @@ ul{
     }
 }
 
+@media (max-width: 900px) {
+    .be-expansion-controller{
+        display: none;
+    }
+    .be-navigation{
+        width: 80px!important;
+        min-width: 80px;
+        &:after{
+            width: 80px;
+        }
+        .be-menu-item-content{
+            .iconfont{
+                font-size: 16px!important;
+                padding-left: 5px!important;
+            }
+        }
+        .be-menu{
+            overflow: visible;
+            .be-menu-submenu-title{
+                .be-menu-item-content{
+                    &:after{
+                        content: @icon-right;
+                    }
+                }
+                &.narrowed{
+                    .be-menu-item-content{
+                        &:after{
+                            content: @icon-right;
+                        }
+                    }
+                }
+            }
+            .be-menu-item{
+                &:active,
+                &:visited{
+                    &:before{  
+                        width: auto;                      
+                        left: @margin-narrow-top;
+                        right: @margin-narrow-top;                      
+                    }
+                }
+            }
+            .be-menu-submenu,
+            .be-menu-item{
+                margin: @margin-narrow-top 0;
+            }
+        }
+        .be-menu-item-content span,
+        .be-menu-item-content:after{
+            display: none;
+        }
+        .be-menu-submenu .be-menu-submenu-wrapper{
+            height: 0;
+        }
+        .be-menu-submenu{
+            >.be-menu-submenu-wrapper{
+                visibility: hidden;
+                .opacity(0);
+            }
+        }
+        .be-menu-submenu{
+            position: relative;
+            &:hover,
+            .be-menu-hover{
+                >.be-menu-submenu-wrapper{
+                    width: 160px;
+                    height: auto!important;
+                    left: 100%;
+                    top: 0; 
+                    display: block;
+                    .show();
+                    .be-menu-item-content span,
+                    .be-menu-item-content:after{
+                        display: block;
+                    }
+                }
+            }
+            >.be-menu-submenu-wrapper{
+                background-color: transparent;
+                position: absolute;
+                width: 160px;
+                height: auto!important;
+                left: 100%;
+                top: 0;
+                overflow: visible;
+                padding: @margin-narrow-top;
+                z-index:1;
+                .hide();
+                &:after{
+                    content:'';
+                    position: absolute;
+                    background-color: @menu-dark-sub-bg;
+                    top: @margin-narrow-top;
+                    left: @margin-narrow-left;
+                    right: @margin-narrow-right;
+                    bottom: @margin-narrow-bottom;
+                    z-index:-1;
+                    border-radius: @narrow-radius;
+                }
+                li{
+                    background-color:@menu-dark-sub-bg;
+                }                
+                .be-menu-item-content span,
+                .be-menu-item-content:after{
+                    display: block;
+                }
+
+                .be-menu-item-content:after{
+                    top: 0;
+                }
+            }
+        }
+    }
+}
 //alert
 
 .be-alert{
@@ -773,8 +887,10 @@ ul{
     }
     .be-pagination-item-wrapper{
         li{
-            &:last-child{
-                margin-right: 0;
+            margin-left: 8px;
+            margin-right: 0;
+            &:first-child{
+                margin-left: 0;
             }
         }
     }

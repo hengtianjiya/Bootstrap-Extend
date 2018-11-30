@@ -88,11 +88,24 @@ class Pagination {
     }
 
     generateItem() {
-        this.$itemWrap.find('ul').html('');
-        for (var i = this.min; i <= this.max; i++) {
-            var $item = $(this.options.itemTemplate);
-            var $result = this.setpage($item, i);
-            this.$itemWrap.find('ul').append($result);
+        let $items = this.$itemWrap.find('ul li');
+        let itemLength = $items.length;
+
+        for (var i = this.min, j = 0; i <= this.max; i++) {
+            if (!itemLength) {
+                var $item = $(this.options.itemTemplate);
+                var $result = this.setpage($item, i);
+                this.$itemWrap.find('ul').append($result);
+            } else {
+                $($items[j]).show();
+                this.setpage($($items[j]), i);
+                j++;
+            }
+        }
+        console.log(j)
+        for (var m = j; m < itemLength; m++) {
+            console.log($($items[j]))
+            $($items[m]).hide();
         }
     }
 

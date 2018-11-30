@@ -570,7 +570,7 @@ ul {
   top: 0;
   overflow: visible;
   padding: 4px;
-  z-index: 1;
+  z-index: 1000;
   visibility: hidden;
   opacity: 0;
   -webkit-transition-property: visibility,opacity;
@@ -604,6 +604,128 @@ ul {
 }
 .be-navigation.narrowed .be-menu-submenu > .be-menu-submenu-wrapper .be-menu-item-content:after {
   top: 0;
+}
+@media (max-width: 900px) {
+  .be-expansion-controller {
+    display: none;
+  }
+  .be-navigation {
+    width: 80px!important;
+    min-width: 80px;
+  }
+  .be-navigation:after {
+    width: 80px;
+  }
+  .be-navigation .be-menu-item-content .iconfont {
+    font-size: 16px!important;
+    padding-left: 5px!important;
+  }
+  .be-navigation .be-menu {
+    overflow: visible;
+  }
+  .be-navigation .be-menu .be-menu-submenu-title .be-menu-item-content:after {
+    content: "\e856";
+  }
+  .be-navigation .be-menu .be-menu-submenu-title.narrowed .be-menu-item-content:after {
+    content: "\e856";
+  }
+  .be-navigation .be-menu .be-menu-item:active:before,
+  .be-navigation .be-menu .be-menu-item:visited:before {
+    width: auto;
+    left: 4px;
+    right: 4px;
+  }
+  .be-navigation .be-menu .be-menu-submenu,
+  .be-navigation .be-menu .be-menu-item {
+    margin: 4px 0;
+  }
+  .be-navigation .be-menu-item-content span,
+  .be-navigation .be-menu-item-content:after {
+    display: none;
+  }
+  .be-navigation .be-menu-submenu .be-menu-submenu-wrapper {
+    height: 0;
+  }
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper {
+    visibility: hidden;
+    /* older safari/Chrome browsers */
+    -webkit-opacity: 0;
+    /* Netscape and Older than Firefox 0.9 */
+    -moz-opacity: 0;
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+    -khtml-opacity: 0;
+    /* IE9 + etc...modern browsers */
+    opacity: 0;
+    /* IE 4-9 */
+    filter: alpha(opacity=0);
+    /*This works in IE 8 & 9 too*/
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    /*IE4-IE9*/
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  }
+  .be-navigation .be-menu-submenu {
+    position: relative;
+  }
+  .be-navigation .be-menu-submenu:hover > .be-menu-submenu-wrapper,
+  .be-navigation .be-menu-submenu .be-menu-hover > .be-menu-submenu-wrapper {
+    width: 160px;
+    height: auto!important;
+    left: 100%;
+    top: 0;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+  .be-navigation .be-menu-submenu:hover > .be-menu-submenu-wrapper .be-menu-item-content span,
+  .be-navigation .be-menu-submenu .be-menu-hover > .be-menu-submenu-wrapper .be-menu-item-content span,
+  .be-navigation .be-menu-submenu:hover > .be-menu-submenu-wrapper .be-menu-item-content:after,
+  .be-navigation .be-menu-submenu .be-menu-hover > .be-menu-submenu-wrapper .be-menu-item-content:after {
+    display: block;
+  }
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper {
+    background-color: transparent;
+    position: absolute;
+    width: 160px;
+    height: auto!important;
+    left: 100%;
+    top: 0;
+    overflow: visible;
+    padding: 4px;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition-property: visibility,opacity;
+    -o-transition-property: visibility,opacity;
+    -moz-transition-property: visibility,opacity;
+    transition-property: visibility,opacity;
+    -webkit-transition-duration: 0.3s;
+       -moz-transition-duration: 0.3s;
+         -o-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+  }
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper:after {
+    content: '';
+    position: absolute;
+    background-color: #000C17;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    z-index: -1;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+  }
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper li {
+    background-color: #000C17;
+  }
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper .be-menu-item-content span,
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper .be-menu-item-content:after {
+    display: block;
+  }
+  .be-navigation .be-menu-submenu > .be-menu-submenu-wrapper .be-menu-item-content:after {
+    top: 0;
+  }
 }
 .be-alert {
   position: fixed;
@@ -858,8 +980,12 @@ ul {
 .be-pagination .be-pagination-jump-next .active .iconfont:before {
   content: "\e85d";
 }
-.be-pagination .be-pagination-item-wrapper li:last-child {
+.be-pagination .be-pagination-item-wrapper li {
+  margin-left: 8px;
   margin-right: 0;
+}
+.be-pagination .be-pagination-item-wrapper li:first-child {
+  margin-left: 0;
 }
 .be-pagination .be-pagination-options-quick-jumper .be-input {
   width: 50px;
