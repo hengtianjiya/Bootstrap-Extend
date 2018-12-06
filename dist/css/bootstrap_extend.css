@@ -1,7 +1,11 @@
-ul {
-  list-style-type: none;
+ul,
+input,
+input.be-radio-input {
+  outline: none;
   padding: 0;
   margin: 0;
+  border: none;
+  list-style-type: none;
 }
 .pull-oh {
   overflow: hidden;
@@ -109,6 +113,7 @@ ul {
 .be-select .be-select-trigger-input .be-select-trigger {
   padding: 0;
   margin: 0;
+  list-style-type: none;
   vertical-align: top;
   position: absolute;
   top: 0;
@@ -999,6 +1004,7 @@ ul {
   padding: 0;
   margin: 0;
   border: none;
+  list-style-type: none;
   padding: 4px 11px;
   height: 32px;
   font-size: 14px;
@@ -1186,6 +1192,105 @@ ul {
   -moz-animation: beRotate 1.2s infinite linear;
     -o-animation: beRotate 1.2s infinite linear;
        animation: beRotate 1.2s infinite linear;
+}
+.be-radio-group .be-radio-wrapper {
+  display: inline-block;
+}
+.be-radio-group .be-radio-wrapper {
+  position: relative;
+  line-height: 22px;
+}
+.be-radio-group .be-radio-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+  /* older safari/Chrome browsers */
+  -webkit-opacity: 0;
+  /* Netscape and Older than Firefox 0.9 */
+  -moz-opacity: 0;
+  /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/
+  -khtml-opacity: 0;
+  /* IE9 + etc...modern browsers */
+  opacity: 0;
+  /* IE 4-9 */
+  filter: alpha(opacity=0);
+  /*This works in IE 8 & 9 too*/
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  /*IE4-IE9*/
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+.be-radio-group .be-radio-input:hover + .be-radio-label:before,
+.be-radio-group .be-radio-input.hover + .be-radio-label:before {
+  border-color: #1890ff;
+}
+.be-radio-group .be-radio-input.checked + .be-radio-label:before {
+  border-color: #1890ff;
+}
+.be-radio-group .be-radio-input.checked + .be-radio-label:after {
+  content: '';
+  border-color: #1890ff;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 4px;
+  top: 7px;
+  background-color: #1890ff;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+}
+.be-radio-group .be-radio-input.disabled.checked {
+  cursor: not-allowed;
+}
+.be-radio-group .be-radio-input.disabled.checked + .be-radio-label:before {
+  border-color: #bfbfbf;
+}
+.be-radio-group .be-radio-input.disabled.checked + .be-radio-label:after {
+  content: '';
+  border-color: #bfbfbf;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 4px;
+  top: 7px;
+  background-color: #bfbfbf;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+}
+.be-radio-group .be-radio-input.disabled {
+  cursor: not-allowed;
+}
+.be-radio-group .be-radio-input.disabled + .be-radio-label:before {
+  border-color: #bfbfbf;
+}
+.be-radio-group .be-radio-label {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 0;
+}
+.be-radio-group .be-radio-label:before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 3px;
+  border: 1px solid #d9d9d9;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+  line-height: 1;
+  left: 0;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.be-radio-group .be-radio-label .be-radio-labe-text {
+  padding: 0 8px;
+  font-weight: normal;
 }
 @-webkit-keyframes fadeIn {
   from {

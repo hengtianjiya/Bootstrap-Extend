@@ -4,6 +4,7 @@ import Upload from './upload.js';
 import Toast from './toast.js';
 import Pagination from './pagination.js';
 import Loading from './loading.js';
+import Radio from './radio.js';
 
 class Common {
     constructor() {
@@ -129,5 +130,9 @@ $(document).ready(function () {
         setTimeout(function () {
             l.hide();
         }, 2000);
+    })
+
+    $('.be-radio-group').on('changed.bs.radio', function (e) {
+        console.log(e.value)
     })
 })

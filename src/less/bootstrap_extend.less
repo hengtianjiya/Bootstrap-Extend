@@ -2,10 +2,10 @@
 @import "mixin.less";
 
 //--common
-ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+ul,
+input,
+input.be-radio-input{
+    .reset();
 }
 //--layout
 .pull-oh{
@@ -1072,6 +1072,98 @@ ul{
 	animation: beRotate 1.2s infinite linear;
 }
 
+//radio
+.be-radio-group{
+    .be-radio-wrapper{
+        display: inline-block;
+    }
+    .be-radio-wrapper{
+        position: relative;
+        line-height: @radio-line-height;
+    }
+    .be-radio-input{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1;
+        .opacity(0);
+        &:hover,
+        &.hover{
+            +.be-radio-label{
+                &:before{
+                    border-color: @hover-color;
+                }
+            }
+        }
+        &.checked{
+            +.be-radio-label{
+                &:before{
+                    border-color: @hover-color;
+                }
+                &:after{
+                    content: '';
+                    border-color: @hover-color;
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    left: 4px;
+                    top: 7px;
+                    background-color: @hover-color;
+                    border-radius: 50%; 
+                }
+            }
+        }
+        &.disabled.checked{
+            cursor: not-allowed;
+            +.be-radio-label{
+                &:before{
+                    border-color: @black-75;
+                }
+                &:after{
+                    content: '';
+                    border-color: @black-75;
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    left: 4px;
+                    top: 7px;
+                    background-color: @black-75;
+                    border-radius: 50%; 
+                }
+            }
+        }
+        &.disabled{
+            cursor: not-allowed;
+            +.be-radio-label{
+                &:before{
+                    border-color: @black-75;
+                }
+            }
+        }
+    }
+    .be-radio-label{
+        position: relative;
+        padding-left: @radio-width;
+        margin-bottom: 0;
+        &:before{
+            content: '';
+            position: absolute;
+            width: @radio-width;
+            height: @radio-height;
+            top:(@radio-line-height - @radio-height)/2;
+            border: 1px solid @select-border-color;
+            border-radius: 50%;
+            line-height: 1;
+            left: 0;
+            transition: all 0.3s;
+        }
+        .be-radio-labe-text{
+            padding: @radio-text-padding;
+            font-weight: normal;
+        }
+    }
+}
 
 //animation
 

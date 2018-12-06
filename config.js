@@ -1,7 +1,7 @@
 exports.config = {
     devHost: "127.0.0.1",
-    devPort: "8899",
-    devPath: "http://127.0.0.1:8899",
+    devPort: "8888",
+    devPath: "http://127.0.0.1:8888",
     proPath: "/dist/js",
     cssDistPath: "./dist/css",
     cssSrcPath: "./src/less",
