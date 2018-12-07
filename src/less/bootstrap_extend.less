@@ -1073,15 +1073,19 @@ input.be-radio-input{
 }
 
 //radio
-.be-radio-group{
-    .be-radio-wrapper{
+.be-radio-group,
+.be-checkbox-group{
+    .be-radio-wrapper,
+    .be-checkbox-wrapper{
         display: inline-block;
     }
-    .be-radio-wrapper{
+    .be-radio-wrapper,
+    .be-checkbox-wrapper{
         position: relative;
         line-height: @radio-line-height;
     }
-    .be-radio-input{
+    .be-radio-input,
+    .be-checkbox-input{
         position: absolute;
         width: 100%;
         height: 100%;
@@ -1090,14 +1094,16 @@ input.be-radio-input{
         .opacity(0);
         &:hover,
         &.hover{
-            +.be-radio-label{
+            +.be-radio-label,
+            +.be-checkbox-label{
                 &:before{
                     border-color: @hover-color;
                 }
             }
         }
         &.checked{
-            +.be-radio-label{
+            +.be-radio-label,
+            +.be-checkbox-label{
                 &:before{
                     border-color: @hover-color;
                 }
@@ -1116,7 +1122,9 @@ input.be-radio-input{
         }
         &.disabled.checked{
             cursor: not-allowed;
-            +.be-radio-label{
+            +.be-radio-label,
+            +.be-checkbox-label{
+                color: @black-75;
                 &:before{
                     border-color: @black-75;
                 }
@@ -1135,14 +1143,74 @@ input.be-radio-input{
         }
         &.disabled{
             cursor: not-allowed;
-            +.be-radio-label{
+            +.be-radio-label,
+            +.be-checkbox-label{
+                color: @black-75;
                 &:before{
                     border-color: @black-75;
                 }
             }
         }
     }
-    .be-radio-label{
+//--checkbox
+    .be-checkbox-input{
+        &:hover,
+        &.hover{
+            +.be-checkbox-label{
+                &:before{
+                    border-color: @hover-color;
+                }
+            }
+        }
+        &.checked{
+            +.be-checkbox-label{
+                &:before{
+                    border-color: @hover-color;
+                    background-color: @hover-color;
+                }
+                &:after{
+                    content: @icon-tick;
+                    color: @white;
+                    width: auto;
+                    height: auto;
+                    background-color: transparent;
+                    left: 3px;
+                    top: 0;
+                }
+            }
+        }
+        &.disabled.checked{
+            cursor: not-allowed;
+            +.be-checkbox-label{
+                color: @black-75;
+                &:before{
+                    border-color: @black-75;
+                    background-color: @white;
+                }
+                &:after{
+                    content: @icon-tick;
+                    color: @black-75;
+                    width: auto;
+                    height: auto;
+                    background-color: transparent;
+                    left: 3px;
+                    top: 0;
+                }
+            }
+        }
+        &.disabled{
+            cursor: not-allowed;
+            +.be-checkbox-label{
+                color: @black-75;
+                &:before{
+                    border-color: @black-75;
+                }
+            }
+        }
+    }
+
+    .be-radio-label,
+    .be-checkbox-label{
         position: relative;
         padding-left: @radio-width;
         margin-bottom: 0;
@@ -1158,13 +1226,64 @@ input.be-radio-input{
             left: 0;
             transition: all 0.3s;
         }
-        .be-radio-labe-text{
+        .be-radio-labe-text,
+        .be-checkbox-labe-text{
             padding: @radio-text-padding;
             font-weight: normal;
         }
     }
-}
 
+    .be-checkbox-label{
+        &:before{
+            content: '';
+            border-radius: 2px;
+            background-color: @white;
+        }
+        &:after{
+            content: @icon-tick;
+            position: absolute;
+            left: 3px;
+            top: 0;
+            color: @white;
+            .icon-style();
+        }
+    }
+}
+//--calendar
+input::-webkit-input-placeholder{
+    color: #d9d9d9;
+}
+.be-calendar{
+    width: 552px;
+    height: 300px;
+    overflow: hidden;
+    font-size: 14px;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    .be-calendar-header{
+        border-bottom: 1px solid #e8e8e8;
+        .be-calendar-input,
+        .be-calendar-span{
+            display: inline-block;
+            color: rgba(0,0,0,.65);
+        }
+        .be-calendar-input{
+            padding: 6px 10px;
+            line-height: 24px;
+        }
+    }
+    .be-calendar-content{
+        .be-calendar-date{
+            width: 50%;
+            float: left;
+            .be-calendar-panel{
+                line-height: 40px;
+                min-height: 40px;
+                border-bottom: 1px solid #e8e8e8;
+            }
+        }
+    }
+}
 //animation
 
 @-webkit-keyframes fadeIn {

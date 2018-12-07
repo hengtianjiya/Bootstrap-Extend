@@ -4,7 +4,16 @@ class Radio {
         this.options = $.extend({}, Radio.DEFAULTS, options);
         this.$current = null;
         this.result = null;
+        this.init();
         this.bindEvent();
+    }
+    init() {
+        let _this = this;
+        let $radioes = _this.$element.find(`${this.options.radio}.checked`);
+        $radioes.each(function () {
+            _this.result = $(this).data('value');
+            _this.$current = $(this);
+        })
     }
     bindEvent() {
         var _this = this;
@@ -37,6 +46,16 @@ class Radio {
             this.check();
         }
     }
+
+    disable() {
+        let $radioes = this.$element.find(this.options.radio);
+        $radioes.addClass('disabled');
+    }
+
+    enable() {
+        let $radioes = this.$element.find(this.options.radio);
+        $radioes.removeClass('disabled');
+    }
 }
 
 Radio.VERSION = '1.0.0';
@@ -53,7 +72,7 @@ function Plugin(option, value) {
         let $this = $(this);
         let data = $this.data('bs.radio');
         let options = $.extend({}, Radio.DEFAULTS, data, typeof option == 'object' && option);
-        if (!data && options.init && /select/.test(option)) options.init = false;
+        if (!data && options.init && /select|disable|enable/.test(option)) options.init = false;
         if (!data) $this.data('bs.radio', (data = new Radio(this, options)));
         if (typeof option == 'string') data[option](value);
     })

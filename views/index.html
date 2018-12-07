@@ -227,8 +227,75 @@
                 </div>
                 <div>
                     <p>checkbox</p>
-                    <div class="be-checkbox-group">
+                    <div class="be-checkbox-group" data-checkbox="checkbox">
+                        <div class="be-checkbox-wrapper">
+                            <div class="be-checkbox-input checked" data-value="1"></div>
+                            <label class="be-checkbox-label">
+                                <span class="be-checkbox-labe-text">option1</span>
+                            </label>
+                        </div>
+                        <div class="be-checkbox-wrapper">
+                            <div class="be-checkbox-input " data-value="2"></div>
+                            <label class="be-checkbox-label">
+                                <span class="be-checkbox-labe-text">option2</span>
+                            </label>
+                        </div>
+                        <div class="be-checkbox-wrapper">
+                            <div class="be-checkbox-input " data-value="3"></div>
+                            <label class="be-checkbox-label">
+                                <span class="be-checkbox-labe-text">option3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p>checkbox disabled</p>
+                    <div class="be-checkbox-group" data-checkbox="checkbox">
+                        <div class="be-checkbox-wrapper">
+                            <div class="be-checkbox-input checked disabled" data-value="1"></div>
+                            <label class="be-checkbox-label">
+                                <span class="be-checkbox-labe-text">option1</span>
+                            </label>
+                        </div>
+                        <div class="be-checkbox-wrapper">
+                            <div class="be-checkbox-input disabled" data-value="2"></div>
+                            <label class="be-checkbox-label">
+                                <span class="be-checkbox-labe-text">option2</span>
+                            </label>
+                        </div>
+                        <div class="be-checkbox-wrapper">
+                            <div class="be-checkbox-input disabled" data-value="3"></div>
+                            <label class="be-checkbox-label">
+                                <span class="be-checkbox-labe-text">option3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p>calendar</p>
+                    <div class="be-calendar">
+                        <div class="be-calendar-header">
+                            <div class="be-calendar-left-input be-calendar-input">
+                                <input type="text" placeholder="开始日期"/>
+                            </div>
+                            <div class="be-calendar-span">~</div>
+                            <div class="be-calendar-right-input be-calendar-input">
+                                <input type="text" placeholder="结束日期"/>
+                            </div>
+                        </div>
+                        <div class="be-calendar-content">
+                            <div class="be-calendar-left be-calendar-date">
+                                <div class="be-calendar-panel">
 
+                                </div>
+                            </div>
+                            <div class="be-calendar-right be-calendar-date">
+                                <div class="be-calendar-panel">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="be-calendar-footer"></div>
                     </div>
                 </div>
             </div>
@@ -250,6 +317,7 @@
 
 <![endif]-->
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="/public/js/moment-with-locales.min.js"></script>
 <script src="/public/js/bootstrap.js"></script>
 <script src="http://127.0.0.1:8888/vendor.js"></script>
 <script src="http://127.0.0.1:8888/bootstrap_extend.js"></script>

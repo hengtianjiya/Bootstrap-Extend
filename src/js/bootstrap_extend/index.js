@@ -5,6 +5,8 @@ import Toast from './toast.js';
 import Pagination from './pagination.js';
 import Loading from './loading.js';
 import Radio from './radio.js';
+import CheckBox from './checkbox.js';
+import DateTimePicker from './datetimepicker.js';
 
 class Common {
     constructor() {
@@ -133,6 +135,10 @@ $(document).ready(function () {
     })
 
     $('.be-radio-group').on('changed.bs.radio', function (e) {
+        console.log(e.value)
+    })
+
+    $('.be-checkbox-group').on('changed.bs.checkbox', function (e) {
         console.log(e.value)
     })
 })
