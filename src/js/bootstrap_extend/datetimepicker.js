@@ -120,7 +120,8 @@ DateTimePicker.DEFAULTS = {
     monthchose: true,
     datechose: true,
     from: now,
-    to: moment().add(1, 'y')
+    to: moment().add(1, 'y'),
+    fromEl : ''
 
 }
 console.log(DateTimePicker.DEFAULTS)
