@@ -9,6 +9,23 @@ class Day {
 
     }
 }
+class MonthDay {
+    constructor(options) {
+        this.options = $.extend({}, options.options);
+        this.momentobj = this.options.momentobj;
+        this.type = this.options.type;
+        return this;
+    }
+
+    init(){
+
+    }
+
+    isLeapYear(year){
+        return moment([year]).isLeapYear();
+    }
+
+}
 
 class Week {
     constructor() {
@@ -27,6 +44,10 @@ class DateTimePicker {
         this.options = $.extend({}, DateTimePicker.DEFAULTS, options);
         this.fromMoment = null;
         this.toMoment = null;
+        this.fromIncetance = null;
+        this.toIncetance = null;
+        this.momentArr = [];
+        return this;
         /*this.year = this.options.y;
         this.month = this.options.m;
         this.date = this.options.d;
@@ -43,24 +64,40 @@ class DateTimePicker {
     }
 
     init(){
+        this.fromMoment = this.checkMoment(this.options.from);
+        this.operateMomentArr(this.fromMoment, 'from');
         if(this.options.span){
-            this.fromMoment = this.options.from;
-            this.toMoment = this.options.to;
-        }else{
-            this.fromMoment = this.options.from;
+            this.toMoment = this.checkMoment(this.options.to);
+            this.operateMomentArr(this.toMoment, 'to');
         }
+        this.getMonthDate();
+    }
+
+    operateMomentArr(moment, type){
+        this.momentArr.push({
+            momentobj : moment,
+            type : type
+        })
+    }
+
+    checkMoment(momentobj){
+        return moment.isMoment(momentobj) ? momentobj : moment(momentobj);
     }
 
     getMonthDate(){
-        
-    }
-
-    isLeapYear(year){
-        return moment([year]).isLeapYear();
+        for (var i = 0; i < this.momentArr.length; i++) {
+            var m = this.momentArr[i].momentobj;
+            var t = this.momentArr[i].type;
+            this[`${t}Incetance`] = new MonthDay({
+                options : this.options,
+                momentobj : m,
+                type : t
+            }).init();
+        }
     }
 }
 var now = moment();
-DateTimePicker.DEFAULT = {
+DateTimePicker.DEFAULTS = {
     now: now,
     nf: now.format("YYYY-MM-DD HH:mm:ss"),
     d: now.format('D'),
@@ -83,8 +120,9 @@ DateTimePicker.DEFAULT = {
     monthchose: true,
     datechose: true,
     from: now,
-    to: now.add(1, 'y')
+    to: moment().add(1, 'y')
 
 }
-console.log(DateTimePicker.DEFAULT)
+console.log(DateTimePicker.DEFAULTS)
+new DateTimePicker().init();
 export default DateTimePicker;

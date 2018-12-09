@@ -102,9 +102,8 @@ class Pagination {
                 j++;
             }
         }
-        console.log(j)
+
         for (var m = j; m < itemLength; m++) {
-            console.log($($items[j]))
             $($items[m]).hide();
         }
     }
