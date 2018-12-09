@@ -1278,9 +1278,25 @@ input::-webkit-input-placeholder{
             width: 50%;
             float: left;
             .be-calendar-panel{
+                width: 100%;
+                display: table;
                 line-height: 40px;
                 min-height: 40px;
                 border-bottom: 1px solid #e8e8e8;
+                >div{
+                    display: table-cell;
+                }
+                .be-calendar-prev,
+                .be-calendar-next{
+                    width: 40px;
+                    .icon{
+                        font-size: 12px;  
+
+                    }
+                }
+                .be-calendar-ym{
+                    text-align:center;
+                }
             }
         }
     }

@@ -1505,9 +1505,25 @@ input::-webkit-input-placeholder {
   float: left;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel {
+  width: 100%;
+  display: table;
   line-height: 40px;
   min-height: 40px;
   border-bottom: 1px solid #e8e8e8;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel > div {
+  display: table-cell;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next {
+  width: 40px;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev .icon,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next .icon {
+  font-size: 12px;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-ym {
+  text-align: center;
 }
 @-webkit-keyframes fadeIn {
   from {
