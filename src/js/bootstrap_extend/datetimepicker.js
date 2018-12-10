@@ -32,6 +32,7 @@ class Week {
         this.defaultOptions = this.options.options;
         this.week = this.options.week;
         this.$td_arr = [];
+        this.init();
         return this;
     }
 
@@ -54,7 +55,11 @@ class Week {
                 ins: _this[`dayInstance${k}`],
                 id: k
             })
-            _this[`$td_${k}`].append(_this[`dayInstance${k}`].$el);
+            _this[`$td_${k}`].addClass(v.type);
+            if(v.current){
+                _this[`$td_${k}`].addClass('cur');
+            }
+            //_this[`$td_${k}`].append(_this[`dayInstance${k}`].$el);
         })
     }
 }
@@ -153,6 +158,7 @@ class MonthDay {
                 date: prev,
                 year: this.prevYear,
                 month: this.prevMonth,
+                type:'previous',
                 current: false
             })
         }
@@ -164,6 +170,7 @@ class MonthDay {
                 date: cur,
                 year: this.year,
                 month: this.month,
+                type:'current',
                 current: cur == this.date
             })
         }
@@ -176,6 +183,7 @@ class MonthDay {
                 date: next,
                 year: this.nextYear,
                 month: this.nextMonth,
+                type:'next',
                 current: false
             })
         }
@@ -199,6 +207,11 @@ class MonthDay {
                     ins: _this[`weekInstance${k}`],
                     id: k
                 })
+
+                _this[`weekInstance${k}`].$td_arr.forEach((vv, kk) => {
+                    _this[`$tr_${k}`].append(vv);
+                })
+                _this.$el.append(_this[`$tr_${k}`]);
             } else {
 
             }
@@ -279,6 +292,8 @@ class DateTimePicker {
                 type: t
             });
             this[`${t}Incetance`].init();
+            this[`$el_${i}`].append(this[`${t}Incetance`].$el);
+            $($('.be-calendar-date-cotent')[i]).append(this[`$el_${i}`]);
         }
     }
 }

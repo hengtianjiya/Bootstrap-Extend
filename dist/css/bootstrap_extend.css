@@ -1525,6 +1525,13 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-ym {
   text-align: center;
 }
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table {
+  width: 100%;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td {
+  text-align: center;
+  min-height: 30px;
+}
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
