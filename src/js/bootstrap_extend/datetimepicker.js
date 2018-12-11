@@ -9,12 +9,18 @@ class Day {
     constructor(options) {
         this.$el = options.$el;
         this.options = $.extend({}, options);
+        this.defaultOptions = this.options.options;
         this.init();
         return this;
     }
 
     init() {
-        this.$el.text(this.options.date.date);
+        var today = `${this.defaultOptions.y}-${this.defaultOptions.m}-${this.defaultOptions.d}`;
+        var date = `${this.options.date.year}-${this.options.date.month}-${this.options.date.date}`;
+        var isToday = today == date;
+        this.$el.addClass(isToday ? 'today' : '')
+        this.$el.html(`<div class="be-date-td">${this.options.date.date}</div>`);
+        this.$el.attr('title', `${this.options.date.year}-${this.options.date.month + 1}-${this.options.date.date}`);
         this.$el.data({
             date: this.options.date
         })
@@ -56,7 +62,7 @@ class Week {
                 id: k
             })
             _this[`$td_${k}`].addClass(v.type);
-            if(v.current){
+            if (v.current) {
                 _this[`$td_${k}`].addClass('cur');
             }
             //_this[`$td_${k}`].append(_this[`dayInstance${k}`].$el);
@@ -86,7 +92,6 @@ class MonthDay {
         this.nextYear = null;
         this.nextMonth = null;
         this.monthTotal = [];
-        this.$tr_arr = [];
         return this;
     }
 
@@ -136,8 +141,8 @@ class MonthDay {
         this.generateDom();
     }
 
-    setMonthDay() {
-
+    setMoment(momentobj) {
+        this.momentobj = momentobj;
     }
 
     parseMonth() {
@@ -158,7 +163,7 @@ class MonthDay {
                 date: prev,
                 year: this.prevYear,
                 month: this.prevMonth,
-                type:'previous',
+                type: 'previous',
                 current: false
             })
         }
@@ -170,7 +175,7 @@ class MonthDay {
                 date: cur,
                 year: this.year,
                 month: this.month,
-                type:'current',
+                type: 'current',
                 current: cur == this.date
             })
         }
@@ -183,19 +188,17 @@ class MonthDay {
                 date: next,
                 year: this.nextYear,
                 month: this.nextMonth,
-                type:'next',
+                type: 'next',
                 current: false
             })
         }
     }
 
     generateDom() {
-        //console.log(this.monthTotal)
         var _this = this;
         _this.$el.data('id', this.options.m_id);
         this.monthTotal.forEach((v, k) => {
             if (!_this[`weekInstance${k}`]) {
-                _this.$tr_arr.push(_this[`$tr_${k}`]);
                 _this[`$tr_${k}`] = $('<tr></tr>');
                 _this[`weekInstance${k}`] = new Week({
                     week: v,
@@ -231,7 +234,8 @@ class Month {
 }
 
 class DateTimePicker {
-    constructor(options) {
+    constructor(element, options) {
+        this.$element = $('.be-calendar');
         this.options = $.extend({}, DateTimePicker.DEFAULTS, options);
         this.fromMoment = null;
         this.toMoment = null;
@@ -239,19 +243,6 @@ class DateTimePicker {
         this.toIncetance = null;
         this.momentArr = [];
         return this;
-        /*this.year = this.options.y;
-        this.month = this.options.m;
-        this.date = this.options.d;
-        this.weekday = this.options.wd;
-        this.hour = this.options.h;
-        this.minute = this.options.min;
-        this.second = this.options.s;
-        this.monthdate = this.options.monthdate;
-        this.span = this.options.span;
-        this.timechose = this.options.timechose;
-        this.yearchose = this.options.yearchose;
-        this.monthchose = this.options.monthchose;
-        this.datechose = this.options.datechose;*/
     }
 
     init() {
@@ -262,6 +253,19 @@ class DateTimePicker {
             this.operateMomentArr(this.toMoment, 'to');
         }
         this.getMonthDate();
+        this.bindEvent();
+    }
+
+    bindEvent() {
+        this.$element.off('click', this.options.$ym)
+        this.$element.on('click', this.options.$ym, function () {
+            console.log(111)
+        })
+        this.$element.off('click', this.options.$prevJump)
+        this.$element.on('click', this.options.$prevJump, function () {
+            var $table = $(this).closest('.be-calendar-date').find('table');
+            console.log($table.data().ins.momentobj.year())
+        })
     }
 
     operateMomentArr(moment, type) {
@@ -272,7 +276,7 @@ class DateTimePicker {
     }
 
     checkMoment(momentobj) {
-        return moment.isMoment(momentobj) ? momentobj : moment(momentobj);
+        return moment.isMoment(momentobj) ? momentobj : moment(momentobj, "YYYY-MM-DD");
     }
 
     getMonthDate() {
@@ -292,8 +296,15 @@ class DateTimePicker {
                 type: t
             });
             this[`${t}Incetance`].init();
+            var $thead = $('<thead></thead>');
+            this.options.wlanarr.forEach(((v, k) => {
+                $thead.append($(`<th>${v}</th>`))
+            }).bind(this))
+            this[`$el_${i}`].append($thead);
             this[`$el_${i}`].append(this[`${t}Incetance`].$el);
-            $($('.be-calendar-date-cotent')[i]).append(this[`$el_${i}`]);
+            $($(this.options.$ym)[i]).find(this.options.$year).text(this.momentArr[i].momentobj.year() + this.options.ylan);
+            $($(this.options.$ym)[i]).find(this.options.$month).text((this.momentArr[i].momentobj.month() + 1) + this.options.mlan);
+            $($(this.options.$dateWrap)[i]).append(this[`$el_${i}`]);
         }
     }
 }
@@ -301,9 +312,9 @@ var now = moment();
 DateTimePicker.DEFAULTS = {
     now: now,
     nf: now.format("YYYY-MM-DD HH:mm:ss"),
-    d: now.format('D'),
-    m: now.format('M'),
-    y: now.format('YYYY'),
+    d: now.date(),
+    m: now.month(),
+    y: now.year(),
     wd: now.format('d'),
     h: now.format('H'),
     min: now.format('m'),
@@ -322,7 +333,16 @@ DateTimePicker.DEFAULTS = {
     datechose: true,
     from: now,
     to: moment().add(1, 'M'),
-    fromEl: ''
+    fromEl: '',
+    $panel: '.be-calendar-panel',
+    $dateWrap: '.be-calendar-date-cotent',
+    $prevJump: '.be-calendar-prev-jump-btn',
+    $prev: '.be-calendar-prev-btn',
+    $nextJump: '.be-calendar-next-jump-btn',
+    $next: '.be-calendar-next-btn',
+    $ym: '.be-calendar-ym',
+    $year: '.be-calendar-year',
+    $month: '.be-calendar-month'
 
 }
 console.log(DateTimePicker.DEFAULTS)

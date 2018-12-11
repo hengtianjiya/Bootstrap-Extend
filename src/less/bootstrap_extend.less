@@ -1255,7 +1255,8 @@ input::-webkit-input-placeholder{
 }
 .be-calendar{
     width: 552px;
-    height: 300px;
+    height: auto;
+    min-height: 300px;
     overflow: hidden;
     font-size: 14px;
     border-radius: 4px;
@@ -1288,7 +1289,8 @@ input::-webkit-input-placeholder{
                 }
                 .be-calendar-prev,
                 .be-calendar-next{
-                    width: 40px;
+                    text-align: center;
+                    width: 50px;
                     .icon{
                         font-size: 12px;  
 
@@ -1299,11 +1301,36 @@ input::-webkit-input-placeholder{
                 }
             }
             .be-calendar-date-cotent{
+                padding: 8px 12px;
                 table{
                     width: 100%;
+                    th,
                     td{
+                        font-weight: normal;
                         text-align: center;
                         min-height: 30px;
+                        height: 30px;
+                        &.previous,
+                        &.next{
+                            color: rgba(0,0,0,.25);
+                        }
+                        
+                    }
+                    td{
+                        cursor: pointer;
+                        .be-date-td{
+                            width: 24px;
+                            height: 24px;
+                            margin: 0 auto;
+                            line-height: 24px;
+                            border-radius: 2px;
+                            transition: all 0.3s;
+                        }
+                        &:hover{
+                            .be-date-td{
+                                background: #e6f7ff;
+                            }
+                        }
                     }
                 }
             }

@@ -1478,7 +1478,8 @@ input::-webkit-input-placeholder {
 }
 .be-calendar {
   width: 552px;
-  height: 300px;
+  height: auto;
+  min-height: 300px;
   overflow: hidden;
   font-size: 14px;
   -webkit-border-radius: 4px;
@@ -1516,7 +1517,8 @@ input::-webkit-input-placeholder {
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next {
-  width: 40px;
+  text-align: center;
+  width: 50px;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev .icon,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next .icon {
@@ -1525,12 +1527,43 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-ym {
   text-align: center;
 }
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent {
+  padding: 8px 12px;
+}
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table {
   width: 100%;
 }
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table th,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td {
+  font-weight: normal;
   text-align: center;
   min-height: 30px;
+  height: 30px;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table th.previous,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td.previous,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table th.next,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td.next {
+  color: rgba(0, 0, 0, 0.25);
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td {
+  cursor: pointer;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td .be-date-td {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+  line-height: 24px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table td:hover .be-date-td {
+  background: #e6f7ff;
 }
 @-webkit-keyframes fadeIn {
   from {
