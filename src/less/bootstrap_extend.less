@@ -1287,6 +1287,13 @@ input::-webkit-input-placeholder{
                 >div{
                     display: table-cell;
                 }
+                .be-calendar-btn{
+                    cursor: pointer;
+                    transition: all .3s;
+                    &:hover{
+                        color: @hover-color;
+                    }
+                }
                 .be-calendar-prev,
                 .be-calendar-next{
                     text-align: center;
@@ -1298,6 +1305,7 @@ input::-webkit-input-placeholder{
                 }
                 .be-calendar-ym{
                     text-align:center;
+                    color: rgba(0,0,0,.85);
                 }
             }
             .be-calendar-date-cotent{

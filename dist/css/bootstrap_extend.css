@@ -1515,6 +1515,16 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel > div {
   display: table-cell;
 }
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-btn {
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-btn:hover {
+  color: #1890ff;
+}
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next {
   text-align: center;
@@ -1526,6 +1536,7 @@ input::-webkit-input-placeholder {
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-ym {
   text-align: center;
+  color: rgba(0, 0, 0, 0.85);
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent {
   padding: 8px 12px;
