@@ -1506,13 +1506,17 @@ input::-webkit-input-placeholder {
   float: left;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel {
-  width: 100%;
-  display: table;
   line-height: 40px;
   min-height: 40px;
   border-bottom: 1px solid #e8e8e8;
 }
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel > div {
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-panel-wrapper,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-year-panel-wrapper {
+  display: table;
+  width: 100%;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-panel-wrapper > div,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-year-panel-wrapper > div {
   display: table-cell;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-btn {
@@ -1526,20 +1530,28 @@ input::-webkit-input-placeholder {
   color: #1890ff;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev,
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next {
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-year-prev,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calenda-yearr-next {
   text-align: center;
   width: 50px;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-prev .icon,
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next .icon {
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-next .icon,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-year-prev .icon,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calenda-yearr-next .icon {
   font-size: 12px;
 }
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-ym {
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-ym,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel .be-calendar-year-ym {
   text-align: center;
   color: rgba(0, 0, 0, 0.85);
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent {
   padding: 8px 12px;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper {
+  display: none;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table {
   width: 100%;

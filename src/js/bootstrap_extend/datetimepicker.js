@@ -116,9 +116,9 @@ class MonthDay {
         var date = this.momentobj.date();
         var weekday = this.momentobj.date(1).weekday();
         if (month == 1) {
-            this.options.monthdate[month] = 28;
+            this.defaultOptions.monthdate[month] = 28;
             if (this.isLeapYear(year)) {
-                this.options.monthdate[month] = 29;
+                this.defaultOptions.monthdate[month] = 29;
             }
         }
         this.year = year;
@@ -254,7 +254,36 @@ class Month {
 
     }
 }
+class Year {
+    constructor(options) {
+        console.log(options)
+        this.$el = $('<tbody></tbody>');
+        this.options = $.extend({}, options);
+        this.defaultOptions = this.options.options;
+    }
 
+    getDC(year) {
+        var str = year + '';
+        var arr = str.split('-')[0].split('');
+        arr.pop();
+        var decadeMin = arr.join('') - 0;
+        var decadeMax = decadeMin - 0 + 1;
+        arr.pop();
+        var centuryMin = arr.join('') - 0;
+        var centuryMax = parseInt(centuryMin + '99')
+        var decadeCentury = {
+            decade: {
+                min: parseInt((decadeMin + '0')),
+                max: parseInt((decadeMax + '0'))
+            },
+            century: {
+                min: centuryMin,
+                max: centuryMax
+            }
+        }
+        return decadeCentury;
+    }
+}
 class DateTimePicker {
     constructor(element, options) {
         this.$element = $('.be-calendar');
@@ -300,21 +329,44 @@ class DateTimePicker {
             _this.setYM(curObj.$ym, y + _this.options.ylan, (curObj.m + 1) + _this.options.mlan);
             curObj.$table.data().ins.setMoment(momentobj);
         })
+
+        _this.$element.off('click', this.options.$prev)
+        _this.$element.on('click', this.options.$prev, function () {
+            var curObj = _this.getCurrentYM.call(_this, $(this));
+            var obj = _this.getPrevMonth(curObj.m, curObj.year);
+            var momentobj = _this.getMoment(`${obj.y}-${obj.m + 1}-1`);
+            _this.setYM(curObj.$ym, obj.y + _this.options.ylan, (obj.m + 1) + _this.options.mlan);
+            curObj.$table.data().ins.setMoment(momentobj);
+        })
+        _this.$element.off('click', this.options.$next)
+        _this.$element.on('click', this.options.$next, function () {
+            var curObj = _this.getCurrentYM.call(_this, $(this));
+            var obj = _this.getNextMonth(curObj.m, curObj.year);
+            var momentobj = _this.getMoment(`${obj.y}-${obj.m + 1}-1`);
+            _this.setYM(curObj.$ym, obj.y + _this.options.ylan, (obj.m + 1) + _this.options.mlan);
+            curObj.$table.data().ins.setMoment(momentobj);
+        })
     }
     getMoment(dateStr) {
         return moment(dateStr, 'YYYY-MM-DD');
     }
 
-    getPrevMonth(month) {
-        return month == 0 ? this.options.monthdate.length - 1 : month - 1;
+    getPrevMonth(month, year) {
+        return {
+            m: month == 0 ? this.options.monthdate.length - 1 : month - 1,
+            y: month == 0 ? this.getPrevYear(year) : year
+        };
     }
 
-    getNextMonth(month) {
-        return month == this.options.monthdate.length - 1 ? this.options.monthdate.length - 1 : month + 1;
+    getNextMonth(month, year) {
+        return {
+            m: month == this.options.monthdate.length - 1 ? 0 : month + 1,
+            y: month == this.options.monthdate.length - 1 ? this.getNextYear(year) : year
+        };
     }
 
     getPrevYear(year) {
-        return year < 1960 ? 1960 : year - 1;
+        return year < 1000 ? 1000 : year - 1;
     }
 
     getNextYear(year) {
@@ -347,18 +399,35 @@ class DateTimePicker {
         $el.find(this.options.$year).text(y);
         $el.find(this.options.$month).text(m);
     }
+    generatePanelDom(el) {
+        $(el)
+            .append(this.options.$panelDate)
+            .append(this.options.$panelYear)
+            .append(this.options.$panelCentury)
+            .append(this.options.$panelDay);
+    }
+    showCurrentOperation(panel, content) {
+        $(panel)
+            .find(`${this.options.generateMap[this.options.datePicker].panel}`)
+            .show();
+        $(content)
+            .find(`${this.options.generateMap[this.options.datePicker].content}`)
+            .show();
+    }
     getMonthDate() {
         for (var i = 0; i < this.momentArr.length; i++) {
+            this.generatePanelDom($(this.options.$panel)[i]);
             var m = this.momentArr[i].momentobj;
             var t = this.momentArr[i].type;
-            this[`$el_${i}`] = $('<table></table>');
+            //generate month
+            this[`$date_${i}`] = $('<table class="be-calendar-date-cotent-wrapper"></table>');
             this[`${t}Incetance`] = new MonthDay({
                 options: this.options,
                 m_id: i,
                 momentobj: m,
                 type: t
             })
-            this[`$el_${i}`].data({
+            this[`$date_${i}`].data({
                 ins: this[`${t}Incetance`],
                 id: i,
                 type: t
@@ -368,10 +437,21 @@ class DateTimePicker {
             this.options.wlanarr.forEach(((v, k) => {
                 $thead.append($(`<th>${v}</th>`))
             }).bind(this))
-            this[`$el_${i}`].append($thead);
-            this[`$el_${i}`].append(this[`${t}Incetance`].$el);
+            this[`$date_${i}`].append($thead);
+            this[`$date_${i}`].append(this[`${t}Incetance`].$el);
             this.setYM($($(this.options.$ym)[i]), this.momentArr[i].momentobj.year() + this.options.ylan, (this.momentArr[i].momentobj.month() + 1) + this.options.mlan);
-            $($(this.options.$dateWrap)[i]).append(this[`$el_${i}`]);
+            //generate year
+            this[`$year_${i}`] = $('<table class=".be-calendar-year-cotent-wrapper"></table>');
+            this[`${t}YearIncetance`] = new Year({
+                options: this.options,
+                y_id: i,
+                momentobj: m,
+                type: t
+            })
+
+
+            $($(this.options.$dateWrap)[i]).append(this[`$date_${i}`]);
+            this.showCurrentOperation($(this.options.$panel)[i], $(this.options.$dateWrap)[i]);
         }
     }
 }
@@ -394,6 +474,7 @@ DateTimePicker.DEFAULTS = {
     wlanarr: ['日', '一', '二', '三', '四', '五', '六'],
     monthdate: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     span: true,
+    datePicker: 'date',
     timechose: true,
     yearchose: true,
     monthchose: true,
@@ -409,7 +490,76 @@ DateTimePicker.DEFAULTS = {
     $next: '.be-calendar-next-btn',
     $ym: '.be-calendar-ym',
     $year: '.be-calendar-year',
-    $month: '.be-calendar-month'
+    $month: '.be-calendar-month',
+    generateMap: {
+        date: {
+            panel: '.be-calendar-panel-wrapper',
+            content: '.be-calendar-date-cotent-wrapper'
+        },
+        year: {
+            panel: '.be-calendar-year-panel-wrapper',
+            content: '.be-calendar-year-cotent-wrapper'
+        },
+        century: {
+            panel: '.be-calendar-century-panel-wrapper',
+            content: '.be-calendar-century-cotent-wrapper'
+        },
+        day: {
+            panel: '.be-calendar-day-panel-wrapper',
+            content: '.be-calendar-day-cotent-wrapper'
+        }
+    },
+    $panelDate: '<div class="be-calendar-panel-wrapper" style="display:none;">\
+        <div class="be-calendar-prev">\
+            <span class="be-calendar-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
+            <span class="be-calendar-prev-btn be-calendar-btn"><i class="icon iconfont icon-left"></i></span>\
+        </div>\
+        <div class="be-calendar-ym">\
+            <span class="be-calendar-year be-calendar-btn"></span>\
+            <span class="be-calendar-month be-calendar-btn"></span>\
+        </div>\
+        <div class="be-calendar-next">\
+            <span class="be-calendar-next-btn be-calendar-btn"><i class="icon iconfont icon-right"></i></span>\
+            <span class="be-calendar-next-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleright"></i></span>\
+        </div>\
+    </div>',
+    $contentDate: '.be-calendar-date-cotent-wrapper',
+    $panelYear: '<div class="be-calendar-year-panel-wrapper" style="display:none">\
+        <div class="be-calendar-year-prev">\
+            <span class="be-calendar-year-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
+        </div>\
+        <div class="be-calendar-year-ym">\
+            <span class="be-calendar-year be-calendar-btn"></span>\
+        </div>\
+        <div class="be-calenda-year-next">\
+            <span class="be-calendar-year-next-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleright"></i></span>\
+        </div>\
+    </div>',
+    $contentYear: '.be-calendar-year-cotent-wrapper',
+    $panelCentury: '<div class="be-calendar-century-panel-wrapper" style="display:none">\
+        <div class="be-calendar-century-prev">\
+            <span class="be-calendar-century-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
+        </div>\
+        <div class="be-calendar-century-ym">\
+            <span class="be-calendar-century be-calendar-btn"></span>\
+        </div>\
+        <div class="be-calenda-century-next">\
+            <span class="be-calendar-century-next-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleright"></i></span>\
+        </div>\
+    </div>',
+    $contentCentury: '.be-calendar-century-cotent-wrapper',
+    $panelDay: '<div class="be-calendar-day-panel-wrapper" style="display:none">\
+        <div class="be-calendar-day-prev">\
+            <span class="be-calendar-day-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
+        </div>\
+        <div class="be-calendar-day-ym">\
+            <span class="be-calendar-day be-calendar-btn"></span>\
+        </div>\
+        <div class="be-calenda-day-next">\
+            <span class="be-calendar-day-next-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleright"></i></span>\
+        </div>\
+    </div>',
+    $contentDay: '.be-calendar-day-cotent-wrapper'
 
 }
 console.log(DateTimePicker.DEFAULTS)
