@@ -1554,6 +1554,7 @@ input::-webkit-input-placeholder {
   display: none;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table {
+  display: none;
   width: 100%;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table th,

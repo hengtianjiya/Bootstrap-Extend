@@ -10,16 +10,19 @@ class Day {
         this.$el = options.$el;
         this.options = $.extend({}, options);
         this.date = this.options.date;
-        this.defaultOptions = this.options.options;
+        this.defaultOptions = options.options;
         this.init();
         return this;
     }
 
     init() {
         var today = `${this.defaultOptions.y}-${this.defaultOptions.m}-${this.defaultOptions.d}`;
+        //console.log(today)
         var date = `${this.date.year}-${this.date.month}-${this.date.date}`;
+        //console.log(date)
         var isToday = today == date;
         this.$el.removeClass();
+        if (isToday) console.log(1)
         this.$el.addClass(isToday ? 'today' : '')
         this.$el.html(`<div class="be-date-td">${this.date.date}</div>`);
         this.$el.attr('title', `${this.date.year}-${this.date.month + 1}-${this.date.date}`);
@@ -39,7 +42,7 @@ class Week {
     constructor(options) {
         this.$parent = options.$el;
         this.options = $.extend({}, options);
-        this.defaultOptions = this.options.options;
+        this.defaultOptions = options.options;
         this.week = this.options.week;
         this.$td_arr = [];
         this.init();
@@ -72,10 +75,10 @@ class Week {
                     id: k
                 })
             } else {
+                _this[`$td_${k}`].removeClass()
                 _this.$td_arr.push(_this[`$td_${k}`]);
                 _this[`dayInstance${k}`].setDay(v);
             }
-            _this[`$td_${k}`].removeClass()
             _this[`$td_${k}`].addClass(v.type);
             if (v.current) {
                 _this[`$td_${k}`].addClass('cur');
@@ -89,7 +92,7 @@ class MonthDay {
     constructor(options) {
         this.$el = $('<tbody></tbody>');
         this.options = $.extend({}, options);
-        this.defaultOptions = this.options.options;
+        this.defaultOptions = options.options;
         this.momentobj = this.options.momentobj;
         this.type = this.options.type;
         this.monthLength = 42;
@@ -250,38 +253,266 @@ class MonthDay {
 }
 
 class Month {
-    constructor() {
+    constructor(options) {
+        this.$el = $('<tbody></tbody>');
+        this.options = $.extend({}, options);
+        this.defaultOptions = options.options;
+        this.momentobj = options.momentobj;
+        this.init();
+        return this;
+    }
+    init() {
+        this.year = this.momentobj.year();
+        this.defaultY = this.defaultOptions.y;
+        this.defaultM = this.defaultOptions.m;
 
+        let $tr;
+        for (let i = 0; i < this.defaultOptions.mlanarr.length; i++) {
+            if (i % 3 == 0 && !this[`$tr${i}`]) {
+                this[`$tr${i}`] = $('<tr></tr>');
+                $tr = this[`$tr${i}`];
+                this.$el.append($tr);
+            }
+            if (!this[`$td${i}`]) {
+                this[`$td${i}`] = $(`<td>${this.defaultOptions.mlanarr[i]}</td>`);
+                $tr.append(this[`$td${i}`]);
+            }
+            this[`$td${i}`].removeClass();
+            this[`$td${i}`]
+                .addClass(this.defaultY == this.year && i == this.defaultM ? 'current-month' : '')
+                .data({
+                    year: this.year,
+                    month: this.month
+                })
+        }
+    }
+    setMoment(momentobj) {
+        this.momentobj = momentobj;
+        this.init();
+    }
+}
+class Decade {
+    constructor(options) {
+        this.options = $.extend({}, options);
+        this.defaultOptions = options.options;
+        this.year = this.options.year;
+        this.type = this.options.type;
+        this.min = this.options.min;
+        this.max = this.options.max;
+        this.init();
+        return this;
+    }
+    init() {
+        //console.log(this.year)
+        //console.log(this.defaultOptions)
+        if (!this.$td) {
+            this.$td = $(`<td class="${this.type}">${this.year}</td>`);
+        } else {
+            this.$td
+                .removeClass()
+                .addClass(this.type)
+                .text(this.year);
+        }
+        this.$td
+            .attr('title', this.year)
+            .addClass(this.year == this.defaultOptions.y ? 'current-year' : '')
+            .data({
+                year: this.year,
+                min: this.min,
+                max: this.max,
+                type: this.type
+            });
+    }
+
+    setDecade(obj) {
+        this.year = obj.year;
+        this.type = obj.type;
+        this.min = obj.min;
+        this.max = obj.max;
+        this.init();
+    }
+}
+
+class Century {
+    constructor(options) {
+        this.options = $.extend({}, options);
+        this.defaultOptions = options.options;
+        this.year = this.options.year;
+        this.type = this.options.type;
+        this.min = this.options.min;
+        this.max = this.options.max;
+        this.minVal = this.options.minVal;
+        this.maxVal = this.options.maxVal;
+        this.init();
+        return this;
+    }
+    init() {
+        if (!this.$td) {
+            this.$td = $(`<td class="${this.type}">${this.year}</td>`);
+        } else {
+            this.$td
+                .removeClass()
+                .addClass(this.type)
+                .text(this.year);
+        }
+        this.$td
+            .attr('title', this.year)
+            .addClass(this.defaultOptions.y >= this.minVal && this.defaultOptions.y <= this.maxVal ? 'current-century' : '')
+            .data({
+                year: this.year,
+                min: this.min,
+                max: this.max,
+                minVal: this.minVal,
+                type: this.type
+            });
+    }
+
+    setCentury(obj) {
+        this.year = obj.year;
+        this.type = obj.type;
+        this.min = obj.min;
+        this.max = obj.max;
+        this.minVal = obj.minVal;
+        this.maxVal = obj.maxVal;
+        this.init();
     }
 }
 class Year {
     constructor(options) {
-        console.log(options)
-        this.$el = $('<tbody></tbody>');
+        this.$elD = $('<tbody></tbody>');
+        this.$elC = $('<tbody></tbody>');
         this.options = $.extend({}, options);
-        this.defaultOptions = this.options.options;
+        this.defaultOptions = options.options;
+        let year = this.options.momentobj.year();
+        let dc = this.getDC(year);
+        this.dc = dc;
+        this.init();
     }
-
+    init() {
+        this.generateDecadeDom();
+        this.generateCenturyDom();
+    }
     getDC(year) {
-        var str = year + '';
-        var arr = str.split('-')[0].split('');
-        arr.pop();
-        var decadeMin = arr.join('') - 0;
-        var decadeMax = decadeMin - 0 + 1;
-        arr.pop();
-        var centuryMin = arr.join('') - 0;
-        var centuryMax = parseInt(centuryMin + '99')
-        var decadeCentury = {
+        let decadeMin = Math.floor(year / 10) * 10;
+        let decadeMax = decadeMin - 0 + 10;
+        let centuryMin = Math.floor(year / 100) * 100;
+        let centuryMax = centuryMin - 0 + 99;
+        return {
             decade: {
-                min: parseInt((decadeMin + '0')),
-                max: parseInt((decadeMax + '0'))
+                min: decadeMin,
+                max: decadeMax
             },
             century: {
                 min: centuryMin,
                 max: centuryMax
             }
+        };
+    }
+    setDecade(decade) {
+        if (this.dc) this.dc.decade = decade;
+    }
+    setCentury(century) {
+        if (this.dc) this.dc.century = century;
+    }
+    generateDecadeDom() {
+        let decade = this.dc.decade;
+        let min = decade.min - 1;
+        let max = decade.max;
+        let arr = [];
+        for (let i = min; i <= max; i++) {
+            arr.push(i);
         }
-        return decadeCentury;
+        let $tr;
+        for (let j = 0; j < arr.length; j++) {
+            if (j % 3 == 0 && !this[`$trD${j}`]) {
+                this[`$trD${j}`] = $('<tr></tr>');
+                $tr = this[`$trD${j}`];
+                this.$elD.append(this[`$trD${j}`]);
+            }
+            let type;
+            switch (j) {
+                case 0:
+                    type = 'previous';
+                    break;
+                case arr.length - 1:
+                    type = 'next';
+                    break;
+                default:
+                    type = 'current';
+                    break;
+            }
+            if (!this[`$tdD${j}`]) {
+                this[`$tdD${j}`] = new Decade({
+                    options: this.defaultOptions,
+                    year: arr[j],
+                    type: type,
+                    min: min,
+                    max: max,
+                    d_id: j
+                })
+                $tr.append(this[`$tdD${j}`].$td);
+            } else {
+                this[`$tdD${j}`].setDecade({
+                    year: arr[j],
+                    type: type,
+                    min: min,
+                    max: max
+                })
+            }
+        }
+    }
+    generateCenturyDom() {
+        let century = this.dc.century;
+        let min = century.min - 10;
+        let max = century.max + 10;
+        let arr = [];
+        for (let i = min; i <= max; i += 10) {
+            arr.push({
+                min: i,
+                max: i + 9
+            });
+        }
+        let $tr;
+        for (let j = 0; j < arr.length; j++) {
+            if (j % 3 == 0 && !this[`$trC${j}`]) {
+                this[`$trC${j}`] = $('<tr></tr>');
+                $tr = this[`$trC${j}`];
+                this.$elC.append(this[`$trC${j}`]);
+            }
+            let type;
+            switch (j) {
+                case 0:
+                    type = 'previous';
+                    break;
+                case arr.length - 1:
+                    type = 'next';
+                    break;
+                default:
+                    type = 'current';
+                    break;
+            }
+            if (!this[`$tdC${j}`]) {
+                this[`$tdC${j}`] = new Century({
+                    options: this.defaultOptions,
+                    year: `${arr[j].min}-${arr[j].max}`,
+                    minVal: arr[j].min,
+                    maxVal: arr[j].max,
+                    min: min,
+                    max: max,
+                    type: type
+                });
+                $tr.append(this[`$tdC${j}`].$td);
+            } else {
+                this[`$tdC${j}`].setCentury({
+                    year: `${arr[j].min}-${arr[j].max}`,
+                    minVal: arr[j].min,
+                    maxVal: arr[j].max,
+                    min: min,
+                    max: max,
+                    type: type
+                })
+            }
+        }
     }
 }
 class DateTimePicker {
@@ -290,8 +521,8 @@ class DateTimePicker {
         this.options = $.extend({}, DateTimePicker.DEFAULTS, options);
         this.fromMoment = null;
         this.toMoment = null;
-        this.fromIncetance = null;
-        this.toIncetance = null;
+        this.fromInstance = null;
+        this.toInstance = null;
         this.momentArr = [];
         return this;
     }
@@ -404,7 +635,8 @@ class DateTimePicker {
             .append(this.options.$panelDate)
             .append(this.options.$panelYear)
             .append(this.options.$panelCentury)
-            .append(this.options.$panelDay);
+            .append(this.options.$panelDay)
+            .append(this.options.$panelMonth);
     }
     showCurrentOperation(panel, content) {
         $(panel)
@@ -421,36 +653,62 @@ class DateTimePicker {
             var t = this.momentArr[i].type;
             //generate month
             this[`$date_${i}`] = $('<table class="be-calendar-date-cotent-wrapper"></table>');
-            this[`${t}Incetance`] = new MonthDay({
+            this[`${t}Instance`] = new MonthDay({
                 options: this.options,
                 m_id: i,
                 momentobj: m,
                 type: t
             })
             this[`$date_${i}`].data({
-                ins: this[`${t}Incetance`],
+                ins: this[`${t}Instance`],
                 id: i,
                 type: t
             });
-            this[`${t}Incetance`].init();
+            this[`${t}Instance`].init();
             var $thead = $('<thead></thead>');
             this.options.wlanarr.forEach(((v, k) => {
                 $thead.append($(`<th>${v}</th>`))
             }).bind(this))
             this[`$date_${i}`].append($thead);
-            this[`$date_${i}`].append(this[`${t}Incetance`].$el);
+            this[`$date_${i}`].append(this[`${t}Instance`].$el);
             this.setYM($($(this.options.$ym)[i]), this.momentArr[i].momentobj.year() + this.options.ylan, (this.momentArr[i].momentobj.month() + 1) + this.options.mlan);
+
             //generate year
             this[`$year_${i}`] = $('<table class=".be-calendar-year-cotent-wrapper"></table>');
-            this[`${t}YearIncetance`] = new Year({
+            this[`$century_${i}`] = $('<table class=".be-calendar-century-cotent-wrapper"></table>');
+            console.log(this.options)
+            this[`${t}YearInstance`] = new Year({
                 options: this.options,
                 y_id: i,
                 momentobj: m,
                 type: t
             })
+            this[`$year_${i}`]
+                .add(this[`$century_${i}`])
+                .data({
+                    ins: this[`${t}YearInstance`],
+                    id: i,
+                    type: t
+                });
+            this[`$year_${i}`].append(this[`${t}YearInstance`].$elD);
+            this[`$century_${i}`].append(this[`${t}YearInstance`].$elC);
 
+            //generate month
+            this[`$month_${i}`] = $('<table class=".be-calendar-month-cotent-wrapper"></table>');
+            this[`${t}MonthInstance`] = new Month({
+                options: this.options,
+                m_id: i,
+                momentobj: m,
+                type: t
+            })
+            this[`$month_${i}`].append(this[`${t}MonthInstance`].$el);
 
-            $($(this.options.$dateWrap)[i]).append(this[`$date_${i}`]);
+            $($(this.options.$dateWrap)[i])
+                .append(this[`$date_${i}`])
+                .append(this[`$year_${i}`])
+                .append(this[`$century_${i}`])
+                .append(this[`$month_${i}`]);
+
             this.showCurrentOperation($(this.options.$panel)[i], $(this.options.$dateWrap)[i]);
         }
     }
@@ -470,7 +728,7 @@ DateTimePicker.DEFAULTS = {
     ylan: '年',
     mlan: '月',
     dlan: '日',
-    mlanarr: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+    mlanarr: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     wlanarr: ['日', '一', '二', '三', '四', '五', '六'],
     monthdate: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
     span: true,
@@ -507,6 +765,10 @@ DateTimePicker.DEFAULTS = {
         day: {
             panel: '.be-calendar-day-panel-wrapper',
             content: '.be-calendar-day-cotent-wrapper'
+        },
+        month: {
+            panel: '.be-calendar-month-panel-wrapper',
+            content: '.be-calendar-month-cotent-wrapper'
         }
     },
     $panelDate: '<div class="be-calendar-panel-wrapper" style="display:none;">\
@@ -536,6 +798,9 @@ DateTimePicker.DEFAULTS = {
         </div>\
     </div>',
     $contentYear: '.be-calendar-year-cotent-wrapper',
+    $yearJumpPrev: '.be-calendar-year-prev-jump-btn',
+    $yearJumpNext: '.be-calendar-year-next-jump-btn',
+    $yearShow: '.be-calendar-year-ym .be-calendar-year',
     $panelCentury: '<div class="be-calendar-century-panel-wrapper" style="display:none">\
         <div class="be-calendar-century-prev">\
             <span class="be-calendar-century-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
@@ -548,6 +813,24 @@ DateTimePicker.DEFAULTS = {
         </div>\
     </div>',
     $contentCentury: '.be-calendar-century-cotent-wrapper',
+    $centuryJumpPrev: '.be-calendar-century-prev-jump-btn',
+    $centuryJumpNext: '.be-calendar-century-next-jump-btn',
+    $centuryShow: '.be-calendar-century-ym .be-calendar-century',
+    $panelMonth: '<div class="be-calendar-month-panel-wrapper" style="display:none">\
+        <div class="be-calendar-month-prev">\
+            <span class="be-calendar-month-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
+        </div>\
+        <div class="be-calendar-month-ym">\
+            <span class="be-calendar-month be-calendar-btn"></span>\
+        </div>\
+        <div class="be-calenda-month-next">\
+            <span class="be-calendar-month-next-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleright"></i></span>\
+        </div>\
+    </div>',
+    $contentMonth: '.be-calendar-month-cotent-wrapper',
+    $monthJumpPrev: '.be-calendar-month-prev-jump-btn',
+    $monthJumpNext: '.be-calendar-month-next-jump-btn',
+    $monthShow: '.be-calendar-month-ym .be-calendar-month',
     $panelDay: '<div class="be-calendar-day-panel-wrapper" style="display:none">\
         <div class="be-calendar-day-prev">\
             <span class="be-calendar-day-prev-jump-btn be-calendar-btn"><i class="icon iconfont icon-doubleleft"></i></span>\
