@@ -1283,7 +1283,9 @@ input::-webkit-input-placeholder{
                 min-height: 40px;
                 border-bottom: 1px solid #e8e8e8;
                 .be-calendar-panel-wrapper,
-                .be-calendar-year-panel-wrapper{
+                .be-calendar-year-panel-wrapper,
+                .be-calendar-century-panel-wrapper,
+                .be-calendar-month-panel-wrapper{
                     display: table;
                     width: 100%;
                     >div{
@@ -1292,7 +1294,11 @@ input::-webkit-input-placeholder{
                 }
                 .be-calendar-btn{
                     cursor: pointer;
-                    transition: all .3s;
+                    transition: all .3s; 
+                    .icon{
+                        font-size: 12px;  
+
+                    }
                     &:hover{
                         color: @hover-color;
                     }
@@ -1300,24 +1306,56 @@ input::-webkit-input-placeholder{
                 .be-calendar-prev,
                 .be-calendar-next,
                 .be-calendar-year-prev,
-                .be-calenda-yearr-next{
+                .be-calendar-year-next,
+                .be-calendar-century-prev,
+                .be-calendar-century-next,
+                .be-calendar-month-prev,
+                .be-calendar-month-next{
                     text-align: center;
                     width: 50px;
-                    .icon{
-                        font-size: 12px;  
-
-                    }
                 }
                 .be-calendar-ym,
-                .be-calendar-year-ym{
+                .be-calendar-year-ym,
+                .be-calendar-century-ym,
+                .be-calendar-month-ym{
                     text-align:center;
                     color: rgba(0,0,0,.85);
                 }
             }
             .be-calendar-date-cotent{
                 padding: 8px 12px;
-                .be-calendar-date-cotent-wrapper{
-                    display: none;
+                .be-calendar-date-cotent-wrapper,
+                .be-calendar-year-cotent-wrapper,
+                .be-calendar-century-cotent-wrapper,
+                .be-calendar-month-cotent-wrapper{
+                    tr{
+                        line-height: 52px;
+                    }
+                    td{
+                        .be-year-td,
+                        .be-century-td,
+                        .be-month-td{
+                            display: inline-block;
+                            line-height: 24px; 
+                            padding: 0 8px;
+                            transition: all 0.3s;
+                            &:hover{
+                                color: #40a9ff;
+                                background: #e6f7ff;
+                            }
+
+                        }
+                        &.current-year,
+                        &.current-century,
+                        &.current-month{
+                            .be-year-td,
+                            .be-century-td,
+                            .be-month-td{
+                                background: #1890ff;
+                                color: #fff;
+                            }
+                        }
+                    }
                 }
                 table{
                     display: none;
