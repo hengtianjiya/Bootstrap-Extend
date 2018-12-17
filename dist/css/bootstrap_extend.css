@@ -1563,6 +1563,13 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper tr {
   line-height: 52px;
 }
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td > div,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td > div,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td > div,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td > div {
+  position: relative;
+  z-index: 1;
+}
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td .be-year-td,
@@ -1598,6 +1605,26 @@ input::-webkit-input-placeholder {
   color: #40a9ff;
   background: #e6f7ff;
 }
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-today .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-today .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-today .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-today .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-year .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-year .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-year .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-year .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-century .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-century .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-century .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-century .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-month .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-month .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-month .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-month .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-today .be-year-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-today .be-year-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-today .be-year-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-today .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-year .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-year .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-year .be-year-td,
@@ -1610,6 +1637,10 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-month .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-month .be-year-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-month .be-year-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-today .be-century-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-today .be-century-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-today .be-century-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-today .be-century-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-year .be-century-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-year .be-century-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-year .be-century-td,
@@ -1622,6 +1653,10 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-month .be-century-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-month .be-century-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-month .be-century-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-today .be-month-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-today .be-month-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-today .be-month-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-today .be-month-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-year .be-month-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-year .be-month-td,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-year .be-month-td,
@@ -1636,6 +1671,44 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-month .be-month-td {
   background: #1890ff;
   color: #fff;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current-today.has-class .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current-today.has-class .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current-today.has-class .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current-today.has-class .be-date-td {
+  border: 1px solid #1890ff;
+  background-color: #fff;
+  color: #1890ff;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.selected .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.selected .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.selected .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.selected .be-date-td {
+  background: #1890ff !important;
+  color: #fff !important;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current {
+  position: relative;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current.span:before,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current.span:before,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current.span:before,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current.span:before {
+  content: '';
+  display: block;
+  background: #e6f7ff;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  border: 0;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  right: 0;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent table {
   display: none;

@@ -1332,6 +1332,10 @@ input::-webkit-input-placeholder{
                         line-height: 52px;
                     }
                     td{
+                        >div{
+                            position: relative;
+                            z-index: 1;
+                        }
                         .be-year-td,
                         .be-century-td,
                         .be-month-td{
@@ -1345,14 +1349,49 @@ input::-webkit-input-placeholder{
                             }
 
                         }
+                        &.current-today,
                         &.current-year,
                         &.current-century,
                         &.current-month{
+                            .be-date-td,
                             .be-year-td,
                             .be-century-td,
                             .be-month-td{
                                 background: #1890ff;
                                 color: #fff;
+                            }
+                        }
+                        &.current-today{
+                            &.has-class{
+                                .be-date-td{
+                                    border:1px solid #1890ff;
+                                    background-color: #fff;
+                                    color: #1890ff;
+                                }
+                            }
+                        }
+                        &.selected{
+                            .be-date-td{
+                                background: #1890ff!important;
+                                color: #fff!important;
+                            }
+                        }
+                        &.current{
+                            position: relative;
+                            &.span{
+                                &:before{
+                                    content:'';    
+                                    display: block;
+                                    background: #e6f7ff;
+                                    border-radius: 0;
+                                    border: 0;
+                                    position: absolute;
+                                    top: 4px;
+                                    bottom: 4px;
+                                    left: 0;
+                                    right: 0;
+
+                                }
                             }
                         }
                     }
