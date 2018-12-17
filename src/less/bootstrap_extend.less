@@ -1253,7 +1253,13 @@ input.be-radio-input{
 input::-webkit-input-placeholder{
     color: #d9d9d9;
 }
+.be-calendar-trigger{
+    position:relative;
+}
 .be-calendar{
+    position:absolute;
+    z-index: 1;
+    display:none;
     width: 552px;
     height: auto;
     min-height: 300px;
@@ -1262,6 +1268,9 @@ input::-webkit-input-placeholder{
     border-radius: 4px;
     -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.15);
     box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    &.in{
+        display: block;
+    }
     .be-calendar-header{
         border-bottom: 1px solid #e8e8e8;
         .be-calendar-input,
@@ -1370,14 +1379,15 @@ input::-webkit-input-placeholder{
                                 }
                             }
                         }
-                        &.selected{
-                            .be-date-td{
-                                background: #1890ff!important;
-                                color: #fff!important;
-                            }
-                        }
                         &.current{
                             position: relative;
+
+                            &.selected{
+                                .be-date-td{
+                                    background: #1890ff!important;
+                                    color: #fff!important;
+                                }
+                            }
                             &.span{
                                 &:before{
                                     content:'';    

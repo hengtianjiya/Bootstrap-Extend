@@ -1476,7 +1476,13 @@ input.be-radio-input {
 input::-webkit-input-placeholder {
   color: #d9d9d9;
 }
+.be-calendar-trigger {
+  position: relative;
+}
 .be-calendar {
+  position: absolute;
+  z-index: 1;
+  display: none;
   width: 552px;
   height: auto;
   min-height: 300px;
@@ -1488,6 +1494,9 @@ input::-webkit-input-placeholder {
   -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.be-calendar.in {
+  display: block;
 }
 .be-calendar .be-calendar-header {
   border-bottom: 1px solid #e8e8e8;
@@ -1680,18 +1689,18 @@ input::-webkit-input-placeholder {
   background-color: #fff;
   color: #1890ff;
 }
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.selected .be-date-td,
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.selected .be-date-td,
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.selected .be-date-td,
-.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.selected .be-date-td {
-  background: #1890ff !important;
-  color: #fff !important;
-}
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current {
   position: relative;
+}
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current.selected .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current.selected .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-century-cotent-wrapper td.current.selected .be-date-td,
+.be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-month-cotent-wrapper td.current.selected .be-date-td {
+  background: #1890ff !important;
+  color: #fff !important;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-date-cotent-wrapper td.current.span:before,
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-date-cotent .be-calendar-year-cotent-wrapper td.current.span:before,
