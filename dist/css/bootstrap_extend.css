@@ -1029,6 +1029,12 @@ input.be-radio-input {
 .be-input:active {
   border-color: #40a9ff;
 }
+.be-input.disabled {
+  border: 1px solid #d9d9d9;
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+}
 .be-spin {
   font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -1479,11 +1485,39 @@ input::-webkit-input-placeholder {
 .be-calendar-trigger {
   position: relative;
 }
+.be-calendar-trigger.be-input {
+  overflow: visible;
+}
+.be-calendar-trigger .be-calendar-input-picker-wrapper .be-calendar-input-picker-show {
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  margin-left: 10%;
+}
+.be-calendar-trigger .be-calendar-input-picker-wrapper .be-calendar-input-picker-show:first-child {
+  margin-left: 0;
+}
+.be-calendar-trigger .be-calendar-input-picker-wrapper .be-calendar-input-picker-show:first-child:before {
+  display: none;
+}
+.be-calendar-trigger .be-calendar-input-picker-wrapper .be-calendar-input-picker-show:before {
+  content: '~';
+  position: absolute;
+  left: -18px;
+}
+.be-calendar-trigger .be-calendar-input-picker-wrapper .be-calendar-input-picker-show input {
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+}
 .be-calendar {
   position: absolute;
   z-index: 1;
+  top: -1px;
+  left: -1px;
   display: none;
-  width: 552px;
+  min-width: 276px;
+  max-width: 552px;
   height: auto;
   min-height: 300px;
   overflow: hidden;
@@ -1491,6 +1525,7 @@ input::-webkit-input-placeholder {
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;
+  background-color: #fff;
   -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -1509,10 +1544,24 @@ input::-webkit-input-placeholder {
 .be-calendar .be-calendar-header .be-calendar-input {
   padding: 6px 10px;
   line-height: 24px;
+  margin-right: 20px;
+  position: relative;
+}
+.be-calendar .be-calendar-header .be-calendar-input:first-child:before {
+  display: none;
+}
+.be-calendar .be-calendar-header .be-calendar-input:before {
+  content: '~';
+  position: absolute;
+  left: -18px;
+}
+.be-calendar .be-calendar-content {
+  white-space: nowrap;
 }
 .be-calendar .be-calendar-content .be-calendar-date {
-  width: 50%;
-  float: left;
+  width: 276px;
+  display: inline-block;
+  vertical-align: top;
 }
 .be-calendar .be-calendar-content .be-calendar-date .be-calendar-panel {
   line-height: 40px;
