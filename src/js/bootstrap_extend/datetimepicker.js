@@ -145,6 +145,7 @@ class MonthDay {
         this.defaultOptions = options.options;
         this.momentobj = this.options.momentobj;
         this.type = this.options.type;
+        this.f = this.defaultOptions.formatMap[this.defaultOptions.format];
         this.monthLength = 42;
         this.weekLength = 7;
         this.weeks = this.monthLength / this.weekLength;
@@ -168,7 +169,8 @@ class MonthDay {
         var year = this.momentobj.year();
         var month = this.momentobj.month();
         var date = this.momentobj.date();
-        var weekday = this.momentobj.date(1).weekday();
+        //var weekday = this.momentobj.date(1).weekday();
+        var weekday = moment(`${year}-${month + 1}-1`, this.f).weekday();
         if (month == 1) {
             this.defaultOptions.monthdate[month] = 28;
             if (this.isLeapYear(year)) {
@@ -225,9 +227,6 @@ class MonthDay {
     }
 
     setSelect(date){
-        console.log(date)
-        //console.log(this.select)
-        //console.log(this.defaultOptions.dateTime)
         if(this.select.length == this.defaultOptions.dateTime.length){
             this.select = [];
         }
@@ -245,6 +244,20 @@ class MonthDay {
             this.defaultOptions.dateTime = arr;
         }
         this.reinit();    
+     }
+     setSelectDirectly(datearr){
+        var f = this.defaultOptions.formatMap[this.defaultOptions.format];
+        var arr = datearr;
+        arr.sort(function(next, prev){
+            var n = moment(next, f).format('x');
+            var p = moment(prev, f).format('x');
+            return n - p;
+        })          
+        this.select = datearr;
+        var arrmoment = this.select.map((v) => moment(v, f));
+        this.defaultOptions.selectTime = this.select;
+        this.defaultOptions.dateTime = arrmoment;
+        this.reinit();   
      }
 
     parseMonth() {
@@ -322,6 +335,7 @@ class MonthDay {
                 })
                 _this.$el.append(_this[`$tr_${k}`]);
             } else {
+                console.log(_this.select)
                 _this[`weekInstance${k}`].setWeek({
                     v : v,
                     select: _this.select
@@ -342,14 +356,13 @@ class Month {
         this.options = $.extend({}, options);
         this.defaultOptions = options.options;
         this.momentobj = options.momentobj;
+        this.defaultY = this.momentobj.year();
+        this.defaultM = this.momentobj.month();
         this.init();
         return this;
     }
     init() {
         this.year = this.momentobj.year();
-        this.defaultY = this.defaultOptions.y;
-        this.defaultM = this.defaultOptions.m;
-
         let $tr;
         for (let i = 0; i < this.defaultOptions.mlanarr.length; i++) {
             if (i % 3 == 0 && !this[`$tr${i}`]) {
@@ -372,6 +385,8 @@ class Month {
     }
     setMoment(momentobj) {
         this.momentobj = momentobj;
+        this.defaultY = this.momentobj.year();
+        this.defaultM = this.momentobj.month();
         this.init();
     }
 }
@@ -379,6 +394,7 @@ class Decade {
     constructor(options) {
         this.options = $.extend({}, options);
         this.defaultOptions = options.options;
+        this.currentyear = this.options.currentyear;
         this.year = this.options.year;
         this.type = this.options.type;
         this.min = this.options.min;
@@ -403,7 +419,7 @@ class Decade {
         //return false;
         this.$td
             .attr('title', this.year)
-            .addClass(this.year == this.defaultOptions.dateTime[this.options.t].year() ? 'current-year' : '')
+            .addClass(this.year == this.currentyear ? 'current-year' : '')
             .data({
                 year: this.year,
                 min: this.min,
@@ -414,6 +430,7 @@ class Decade {
 
     setDecade(obj) {
         this.year = obj.year;
+        this.currentyear = obj.currentyear;
         this.type = obj.type;
         this.min = obj.min;
         this.max = obj.max;
@@ -426,6 +443,7 @@ class Century {
         this.options = $.extend({}, options);
         this.defaultOptions = options.options;
         this.year = this.options.year;
+        this.currentyear = this.options.currentyear;
         this.type = this.options.type;
         this.min = this.options.min;
         this.max = this.options.max;
@@ -448,7 +466,7 @@ class Century {
         //return false;
         this.$td
             .attr('title', this.year)
-            .addClass(this.defaultOptions.dateTime[this.options.t].year() >= this.minVal && this.defaultOptions.dateTime[this.options.t].year() <= this.maxVal ? 'current-century' : '')
+            .addClass(this.currentyear >= this.minVal && this.currentyear <= this.maxVal ? 'current-century' : '')
             .data({
                 year: this.year,
                 min: this.min,
@@ -461,6 +479,7 @@ class Century {
 
     setCentury(obj) {
         this.year = obj.year;
+        this.currentyear = obj.currentyear;
         this.type = obj.type;
         this.min = obj.min;
         this.max = obj.max;
@@ -475,8 +494,8 @@ class Year {
         this.$elC = $('<tbody></tbody>');
         this.options = $.extend({}, options);
         this.defaultOptions = options.options;
-        let year = this.options.momentobj.year();
-        let dc = this.getDC(year);
+        this.year = this.options.momentobj.year();
+        let dc = this.getDC(this.year);
         this.dc = dc;
         this.init();
     }
@@ -501,6 +520,8 @@ class Year {
         };
     }
     setDC(year){
+        console.log(year);
+        this.year = year;
         let dc = this.getDC(year);
         this.dc = dc;
         this.init();
@@ -547,7 +568,8 @@ class Year {
                     min: min,
                     max: max,
                     d_id: j,
-                    t : this.options.type
+                    t : this.options.type,
+                    currentyear : this.year
                 })
                 $tr.append(this[`$tdD${j}`].$td);
             } else {
@@ -555,7 +577,8 @@ class Year {
                     year: arr[j],
                     type: type,
                     min: min,
-                    max: max
+                    max: max,
+                    currentyear : this.year
                 })
             }
         }
@@ -599,7 +622,8 @@ class Year {
                     min: min,
                     max: max,
                     type: type,
-                    t : this.options.type
+                    t : this.options.type,
+                    currentyear : this.year
                 });
                 $tr.append(this[`$tdC${j}`].$td);
             } else {
@@ -609,7 +633,8 @@ class Year {
                     maxVal: arr[j].max,
                     min: min,
                     max: max,
-                    type: type
+                    type: type,
+                    currentyear : this.year
                 })
             }
         }
@@ -627,6 +652,7 @@ class DateTimePicker {
     }
 
     init() {
+        console.log('init')
         this.$trigger.append(this.options.$template);
         this.$element = this.$trigger.find('.be-calendar');
         this.operateDateTime();
@@ -637,22 +663,32 @@ class DateTimePicker {
         var f = this.options.formatMap[this.options.format];
         if(typeof this.options.dateTime == 'string') this.options.dateTime = eval(this.options.dateTime);
         if(!this.options.dateTime || !this.options.dateTime.length) this.options.dateTime = new Array(2).fill('');
+
+            console.log(this.options.dateTime)
+
         for(var i = 0; i < this.options.dateTime.length; i++){
             if(this.options.dateTime[i]){
                 var m = this.checkMoment(this.options.dateTime[i]);
             }else{
                 var m = moment().add(i, 'M');
             }
+            console.log(m)
             this.selectTime[i] = m.format(f);
             this.options.dateTime[i] = m;
             this.operateMomentArr(m, i)
         }
+
+            console.log(this.options.dateTime)
+
     }
 
     select(datetime){
+        console.log('select ')
+        console.log(datetime)
         this.momentArr = [];
         this.options.dateTime = datetime;
         this.operateDateTime();
+        //return false;
         this.getMonthDate();
     }
     toggle(){
@@ -714,7 +750,8 @@ class DateTimePicker {
 
         _this.$element.off('click', this.options.$prev);
         _this.$element.on('click', this.options.$prev, function () {
-            var curObj = _this.getCurrentYM.call(_this, $(this));
+            prev(_this, $(this));
+            /*var curObj = _this.getCurrentYM.call(_this, $(this));
             var obj = _this.getPrevMonth(curObj.m, curObj.year);
             var momentobj = _this.getMoment(`${obj.y}-${obj.m + 1}-1`);
             _this.setYM(
@@ -724,11 +761,13 @@ class DateTimePicker {
                 curObj.$calendar,
                 obj.y,
                 (obj.m + 1));
-            curObj.$table.data().ins.setMoment(momentobj);
+            curObj.$table.data().ins.setMoment(momentobj);*/
         })
         _this.$element.off('click', this.options.$next);
         _this.$element.on('click', this.options.$next, function () {
-            var curObj = _this.getCurrentYM.call(_this, $(this));
+            next(_this, $(this));
+
+            /*var curObj = _this.getCurrentYM.call(_this, $(this));
             var obj = _this.getNextMonth(curObj.m, curObj.year);
             var momentobj = _this.getMoment(`${obj.y}-${obj.m + 1}-1`);
             _this.setYM(
@@ -738,8 +777,36 @@ class DateTimePicker {
                 curObj.$calendar,
                 obj.y,
                 (obj.m + 1));
-            curObj.$table.data().ins.setMoment(momentobj);
+            curObj.$table.data().ins.setMoment(momentobj);*/
         })
+
+        function prev(env, $this){
+            var curObj = env.getCurrentYM.call(env, $this);
+            var obj = env.getPrevMonth(curObj.m, curObj.year);
+            var momentobj = env.getMoment(`${obj.y}-${obj.m + 1}-1`);
+            env.setYM(
+                curObj.$ym, 
+                obj.y + env.options.ylan, 
+                (obj.m + 1) + env.options.mlan,
+                curObj.$calendar,
+                obj.y,
+                (obj.m + 1));
+            curObj.$table.data().ins.setMoment(momentobj);
+        }
+        function next(env, $this){
+            var curObj = env.getCurrentYM.call(env, $this);
+            var obj = env.getNextMonth(curObj.m, curObj.year);
+            var momentobj = env.getMoment(`${obj.y}-${obj.m + 1}-1`);
+            env.setYM(
+                curObj.$ym, 
+                obj.y + env.options.ylan, 
+                (obj.m + 1) + env.options.mlan,
+                curObj.$calendar,
+                obj.y,
+                (obj.m + 1));
+            curObj.$table.data().ins.setMoment(momentobj);
+        }
+
         _this.$element.off('click', `${this.options.$contentDate} td`);
         _this.$element.on('click', `${this.options.$contentDate} td`, function(){
             var curData = $(this).data();
@@ -748,7 +815,6 @@ class DateTimePicker {
                 var data = $($tabledate[i]).data();
                 data.ins.setSelect(`${curData.date.year}-${curData.date.month + 1}-${curData.date.date}`);
             }
-            console.log(_this.options.selectTime);
             _this.setInput.call(_this);
             if(_this.options.selectTime.length == _this.options.dateTime.length){
                 var changeEvent = $.Event('changed.bs.calendar', {
@@ -757,6 +823,13 @@ class DateTimePicker {
                 _this.$trigger.trigger(changeEvent);
                 _this.hide();
             }
+            if($(this).hasClass('previous')){
+                prev(_this, $(this))
+            }
+            if($(this).hasClass('next')){
+                next(_this, $(this))
+            }
+
         })
         //bind month event
         _this.$element.off('click', `${this.options.$contentMonth} td`);
@@ -808,8 +881,11 @@ class DateTimePicker {
         _this.$element.on('click', `${this.options.$contentYear} .current`, function(){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var curObj = _this.getCurrentYM.call(_this, $(this));
+            var $table = $calendar.find(_this.options.$contentYear);
             var $data = $(this).data();
             var momentobj = _this.getMoment(`${$data.year}-${curObj.m + 1}-1`);
+            console.log($data.year)
+            $table.data().ins.setDC($data.year);
             _this.setYM(
                 curObj.$ym, 
                 $data.year + _this.options.ylan, 
@@ -868,6 +944,7 @@ class DateTimePicker {
 
     }
     getMoment(dateStr) {
+        //console.log(moment(dateStr, 'YYYY-MM-DD'))
         return moment(dateStr, 'YYYY-MM-DD');
     }
 
@@ -908,6 +985,7 @@ class DateTimePicker {
         }
     }
     operateMomentArr(moment, type) {
+        console.log(moment)
         this.momentArr.push({
             momentobj: moment,
             type: type
@@ -915,16 +993,17 @@ class DateTimePicker {
     }
 
     checkMoment(momentobj) {
+            //console.log(moment.isMoment(momentobj) ? momentobj : this.getMoment(momentobj))
         return moment.isMoment(momentobj) ? momentobj : this.getMoment(momentobj);
     }
-    setYM($el, y, m, calendar, calendaryear, calendarmonth) {
+    setYM($el, y, m, calendar, calendaryear, calendarmonth, calendardate) {
         $el.find(this.options.$year).text(y);
         $el.find(this.options.$month).text(m);
         if(calendar && calendaryear){
             this.setMY(calendar.find(this.options.$monthShow), calendaryear);
             var $table = calendar.find(this.options.$contentMonth);
             var $tdata =  $table.data();
-            $tdata.ins.setMoment(this.getMoment(`${calendaryear}-${calendarmonth}-1`));
+            $tdata.ins.setMoment(this.getMoment(`${calendaryear}-${calendarmonth}-${calendardate ? calendardate : 1}`));
         }
     }
     setYD(el, dc){
@@ -935,9 +1014,12 @@ class DateTimePicker {
         el.text(y);
     }
     setInput(){
+        console.log(this.options.selectTime)
+        var f = this.options.formatMap[this.options.format];
         this.options.selectTime.forEach((v, k)=>{
-            $(this.$element.find(this.options.$input)[k]).val(v);
-            $(this.$trigger.find(this.options.$pickerInput)[k]).val(v);
+            var date = moment.isMoment(v) ? v.format(f) : v;
+            $(this.$element.find(this.options.$input)[k]).val(date);
+            $(this.$trigger.find(this.options.$pickerInput)[k]).val(date);
         })
     }
     generatePanelDom(el) {
@@ -975,10 +1057,13 @@ class DateTimePicker {
                 $(this.$element).find(this.options.$calendarContent).append(this.options.$contentTemplate);
                 this.generatePanelDom($(this.$element.find(this.options.$panel)[i]));
             }
-
+            var idate = this.options.dateTime[i].format(f);
             $(this.$element.find(this.options.$input)[i])
-                .attr('plceholder', this.options.dateTimePlaceholder[i])
-                .val(this.options.dateTime[i].format(f));
+                .attr('placeholder', this.options.dateTimePlaceholder[i])
+                .val(idate);
+            $(this.$trigger.find(this.options.$pickerInput)[i])
+                .val(idate);
+
             var m = this.momentArr[i].momentobj;
             var t = this.momentArr[i].type;
             //generate date
@@ -999,7 +1084,8 @@ class DateTimePicker {
                 this[`$date_${i}`].append(this[`${t}Instance`].$el);
             }else{
                 this[`${t}Instance`].setMoment(m);
-                //this[`${t}Instance`].setSelect(this.options.dateTime[i]);
+                var dateTime = $.extend(true,[], this.selectTime);
+                this[`${t}Instance`].setSelectDirectly(dateTime);
             }
             this[`$date_${i}`].data({
                 ins: this[`${t}Instance`],
@@ -1007,6 +1093,9 @@ class DateTimePicker {
                 type: t,
                 select: this.selectTime
             });
+
+
+            //return false;
 
             //generate year
             if(!this[`${t}YearInstance`]){
@@ -1061,14 +1150,14 @@ class DateTimePicker {
                 type: t,
                 select: this.selectTime
             })
-
             this.setYM(
                 $(this.$element.find(this.options.$ym)[i]), 
                 this.momentArr[i].momentobj.year() + this.options.ylan, 
                 (this.momentArr[i].momentobj.month() + 1) + this.options.mlan, 
                 $(this.$element.find(this.options.$monthShow)[i]).closest(this.options.$calendar),
                 this.momentArr[i].momentobj.year(),
-                (this.momentArr[i].momentobj.month() + 1));
+                (this.momentArr[i].momentobj.month() + 1),
+                this.momentArr[i].momentobj.date());
 
             this.showCurrentOperation($(this.$element.find(this.options.$panel)[i]), $(this.$element.find(this.options.$dateWrap)[i]));
         }
@@ -1262,7 +1351,7 @@ var old = $.fn.datetimepicker;
 $.fn.datetimepicker = Plugin;
 $.fn.datetimepicker.Constructor = DateTimePicker;
 
-$.fn.select.noConflict = function () {
+$.fn.datetimepicker.noConflict = function () {
     $.fn.datetimepicker = old;
     return this;
 }
