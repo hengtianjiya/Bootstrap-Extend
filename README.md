@@ -3,11 +3,5 @@ As we need to develop website which supports IE8, and with the ant design, I dec
 I also use the ES6 synax to develop and degrade the ES6 to ES3 for running on IE8 platform.
 
 Now I have developed plugins, as below, with ant design style and bootstrap's programming.
-
- Expansion
- Select
- Upload
  
-Then I will update this project soon.
-
-![](https://github.com/hengtianjiya/Bootstrap-Extend/blob/master/public/img/expansion%20and%20select.jpg)
+I will update this project soon.
