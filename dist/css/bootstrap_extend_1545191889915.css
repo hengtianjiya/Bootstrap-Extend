@@ -1510,6 +1510,25 @@ input::-webkit-input-placeholder {
   text-align: center;
   background-color: transparent;
 }
+.be-calendar-trigger .be-calendar-picker-delete {
+  position: absolute;
+  top: 0;
+  right: 11px;
+  height: 30px;
+  line-height: 30px;
+}
+.be-calendar-trigger .be-calendar-picker-delete .iconfont {
+  color: #d9d9d9;
+}
+.be-calendar-trigger .be-calendar-picker-delete .iconfont:before {
+  content: "\e818";
+}
+.be-calendar-trigger.has-value .be-calendar-picker-delete:hover {
+  cursor: pointer;
+}
+.be-calendar-trigger.has-value .be-calendar-picker-delete:hover .iconfont:before {
+  content: "\e89e";
+}
 .be-calendar {
   position: absolute;
   z-index: 1;
@@ -1542,7 +1561,7 @@ input::-webkit-input-placeholder {
   color: rgba(0, 0, 0, 0.65);
 }
 .be-calendar .be-calendar-header .be-calendar-input {
-  padding: 6px 10px;
+  padding: 4px 10px;
   line-height: 24px;
   margin-right: 20px;
   position: relative;
@@ -1950,3 +1969,5 @@ input::-webkit-input-placeholder {
          transform: rotate(405deg);
   }
 }
+
+/*# sourceMappingURL=bootstrap_extend_1545191889915.css.map */

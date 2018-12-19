@@ -141,4 +141,8 @@ $(document).ready(function () {
     $('.be-checkbox-group').on('changed.bs.checkbox', function (e) {
         console.log(e.value)
     })
+
+    $('[data-toggle="datatimepicker"]').on('changed.bs.calendar', function(e){
+        console.log(e.value)
+    })
 })

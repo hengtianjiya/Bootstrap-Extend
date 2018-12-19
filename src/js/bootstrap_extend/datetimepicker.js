@@ -335,7 +335,7 @@ class MonthDay {
                 })
                 _this.$el.append(_this[`$tr_${k}`]);
             } else {
-                console.log(_this.select)
+                //console.log(_this.select)
                 _this[`weekInstance${k}`].setWeek({
                     v : v,
                     select: _this.select
@@ -642,8 +642,9 @@ class Year {
 }
 class DateTimePicker {
     constructor(trigger, options) {
-        this.$trigger = $(trigger);        
+        this.$trigger = $(trigger);      
         this.options = $.extend(true, {}, options);
+        this.timeLength = this.$trigger.find(this.options.$pickerInput).length;  
         this.momentArr = [];
         this.selectTime = [];
         this.init();
@@ -652,7 +653,7 @@ class DateTimePicker {
     }
 
     init() {
-        console.log('init')
+        //console.log('init')
         this.$trigger.append(this.options.$template);
         this.$element = this.$trigger.find('.be-calendar');
         this.operateDateTime();
@@ -662,34 +663,43 @@ class DateTimePicker {
     operateDateTime(){
         var f = this.options.formatMap[this.options.format];
         if(typeof this.options.dateTime == 'string') this.options.dateTime = eval(this.options.dateTime);
-        if(!this.options.dateTime || !this.options.dateTime.length) this.options.dateTime = new Array(2).fill('');
-
-            console.log(this.options.dateTime)
-
+        if(!this.options.dateTime || !this.options.dateTime.length) this.options.dateTime = new Array(this.timeLength).fill('');
         for(var i = 0; i < this.options.dateTime.length; i++){
             if(this.options.dateTime[i]){
                 var m = this.checkMoment(this.options.dateTime[i]);
             }else{
                 var m = moment().add(i, 'M');
             }
-            console.log(m)
+            //console.log(m)
             this.selectTime[i] = m.format(f);
             this.options.dateTime[i] = m;
             this.operateMomentArr(m, i)
         }
-
-            console.log(this.options.dateTime)
-
     }
 
     select(datetime){
-        console.log('select ')
-        console.log(datetime)
+        //console.log('select ')
+        //console.log(datetime)
+        var tmpArr = $.extend(true, [], datetime);
         this.momentArr = [];
         this.options.dateTime = datetime;
         this.operateDateTime();
         //return false;
         this.getMonthDate();
+        var _this = this;
+        tmpArr.forEach((v,k)=>{
+            $(_this.$trigger.find(_this.options.$pickerInput)[k]).val(v);
+        })
+        this.$trigger.addClass('has-value');
+        var changeEvent = $.Event('changed.bs.calendar', {
+            value: tmpArr
+        });
+        this.$trigger.trigger(changeEvent);
+    }
+    delete(){
+        this.select([]);
+        this.$trigger.find(this.options.$pickerInput).val('');
+        this.$trigger.removeClass('has-value');
     }
     toggle(){
         this[this.$element.hasClass('in') ? 'hide' : 'show']();
@@ -710,17 +720,21 @@ class DateTimePicker {
         var _this = this;
         //bind date event
         _this.$element.off('click', `${this.options.$ym} ${this.options.$year}`)
-        _this.$element.on('click', `${this.options.$ym} ${this.options.$year}`, function () {
+        _this.$element.on('click', `${this.options.$ym} ${this.options.$year}`, function (e) {
             _this.setDatePicker.call(_this, $(this), 'year');
+            e.preventDefault();
+            e.stopPropagation();
         })
 
         _this.$element.off('click', `${this.options.$ym} ${this.options.$month}`)
-        _this.$element.on('click', `${this.options.$ym} ${this.options.$month}`, function () {
+        _this.$element.on('click', `${this.options.$ym} ${this.options.$month}`, function (e) {
             _this.setDatePicker.call(_this, $(this), 'month');
+            e.preventDefault();
+            e.stopPropagation();
         })
 
         _this.$element.off('click', `${this.options.$prevJump},${this.options.$monthJumpPrev}`);
-        _this.$element.on('click',`${this.options.$prevJump},${this.options.$monthJumpPrev}`, function () {
+        _this.$element.on('click',`${this.options.$prevJump},${this.options.$monthJumpPrev}`, function (e) {
             var curObj = _this.getCurrentYM.call(_this, $(this));
             var y = _this.getPrevYear(curObj.year);
             var momentobj = _this.getMoment(`${y}-${curObj.m + 1}-1`);
@@ -732,9 +746,11 @@ class DateTimePicker {
                 y,
                 (curObj.m + 1));
             curObj.$table.data().ins.setMoment(momentobj);
+            e.preventDefault();
+            e.stopPropagation();
         })
         _this.$element.off('click', `${this.options.$nextJump},${this.options.$monthJumpNext}`);
-        _this.$element.on('click', `${this.options.$nextJump},${this.options.$monthJumpNext}`, function () {
+        _this.$element.on('click', `${this.options.$nextJump},${this.options.$monthJumpNext}`, function (e) {
             var curObj = _this.getCurrentYM.call(_this, $(this));
             var y = _this.getNextYear(curObj.year);
             var momentobj = _this.getMoment(`${y}-${curObj.m + 1}-1`);
@@ -746,38 +762,21 @@ class DateTimePicker {
                 y,
                 (curObj.m + 1));
             curObj.$table.data().ins.setMoment(momentobj);
+            e.preventDefault();
+            e.stopPropagation();
         })
 
         _this.$element.off('click', this.options.$prev);
-        _this.$element.on('click', this.options.$prev, function () {
+        _this.$element.on('click', this.options.$prev, function (e) {
             prev(_this, $(this));
-            /*var curObj = _this.getCurrentYM.call(_this, $(this));
-            var obj = _this.getPrevMonth(curObj.m, curObj.year);
-            var momentobj = _this.getMoment(`${obj.y}-${obj.m + 1}-1`);
-            _this.setYM(
-                curObj.$ym, 
-                obj.y + _this.options.ylan, 
-                (obj.m + 1) + _this.options.mlan,
-                curObj.$calendar,
-                obj.y,
-                (obj.m + 1));
-            curObj.$table.data().ins.setMoment(momentobj);*/
+            e.preventDefault();
+            e.stopPropagation();
         })
         _this.$element.off('click', this.options.$next);
-        _this.$element.on('click', this.options.$next, function () {
+        _this.$element.on('click', this.options.$next, function (e) {
             next(_this, $(this));
-
-            /*var curObj = _this.getCurrentYM.call(_this, $(this));
-            var obj = _this.getNextMonth(curObj.m, curObj.year);
-            var momentobj = _this.getMoment(`${obj.y}-${obj.m + 1}-1`);
-            _this.setYM(
-                curObj.$ym, 
-                obj.y + _this.options.ylan, 
-                (obj.m + 1) + _this.options.mlan,
-                curObj.$calendar,
-                obj.y,
-                (obj.m + 1));
-            curObj.$table.data().ins.setMoment(momentobj);*/
+            e.preventDefault();
+            e.stopPropagation();
         })
 
         function prev(env, $this){
@@ -808,7 +807,7 @@ class DateTimePicker {
         }
 
         _this.$element.off('click', `${this.options.$contentDate} td`);
-        _this.$element.on('click', `${this.options.$contentDate} td`, function(){
+        _this.$element.on('click', `${this.options.$contentDate} td`, function(e){
             var curData = $(this).data();
             var $tabledate = $(_this.$element).find(_this.options.$contentDate);
             for(var i = 0; i < $tabledate.length; i++){
@@ -829,11 +828,13 @@ class DateTimePicker {
             if($(this).hasClass('next')){
                 next(_this, $(this))
             }
+            e.preventDefault();
+            e.stopPropagation();
 
         })
         //bind month event
         _this.$element.off('click', `${this.options.$contentMonth} td`);
-        _this.$element.on('click', `${this.options.$contentMonth} td`, function(){
+        _this.$element.on('click', `${this.options.$contentMonth} td`, function(e){
             var curObj = _this.getCurrentYM.call(_this, $(this));
             var $data = $(this).data();
             var momentobj = _this.getMoment(`${curObj.year}-${$data.month + 1}-1`);
@@ -850,11 +851,13 @@ class DateTimePicker {
             $tdata.ins.setMoment(_this.getMoment(`${curObj.year}-${$data.month + 1}-1`));
             curObj.$table.data().ins.setMoment(momentobj);
             _this.setDatePicker.call(_this, $(this), 'date');
+            e.preventDefault();
+            e.stopPropagation();
         });
         
         //bind year event
         _this.$element.off('click', `${this.options.$yearJumpPrev}, ${this.options.$contentYear} .previous`);
-        _this.$element.on('click', `${this.options.$yearJumpPrev}, ${this.options.$contentYear} .previous`, function(){
+        _this.$element.on('click', `${this.options.$yearJumpPrev}, ${this.options.$contentYear} .previous`, function(e){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var $table = $calendar.find(_this.options.$contentYear);
             var $data =  $table.data();
@@ -863,10 +866,12 @@ class DateTimePicker {
             var year = dc.decade.min - 10;
             $ins.setDC(year);
             _this.setYD($calendar.find(_this.options.$panel), dc);
+            e.preventDefault();
+            e.stopPropagation();
 
         });
         _this.$element.off('click', `${this.options.$yearJumpNext}, ${this.options.$contentYear} .next`);
-        _this.$element.on('click', `${this.options.$yearJumpNext}, ${this.options.$contentYear} .next`, function(){
+        _this.$element.on('click', `${this.options.$yearJumpNext}, ${this.options.$contentYear} .next`, function(e){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var $table = $calendar.find(_this.options.$contentYear);
             var $data =  $table.data();
@@ -875,16 +880,18 @@ class DateTimePicker {
             var year = dc.decade.max + 10;
             $ins.setDC(year);
             _this.setYD($calendar.find(_this.options.$panel), dc);
+            e.preventDefault();
+            e.stopPropagation();
 
         });
         _this.$element.off('click', `${this.options.$contentYear} .current`);
-        _this.$element.on('click', `${this.options.$contentYear} .current`, function(){
+        _this.$element.on('click', `${this.options.$contentYear} .current`, function(e){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var curObj = _this.getCurrentYM.call(_this, $(this));
             var $table = $calendar.find(_this.options.$contentYear);
             var $data = $(this).data();
             var momentobj = _this.getMoment(`${$data.year}-${curObj.m + 1}-1`);
-            console.log($data.year)
+            //console.log($data.year)
             $table.data().ins.setDC($data.year);
             _this.setYM(
                 curObj.$ym, 
@@ -895,15 +902,19 @@ class DateTimePicker {
                 (curObj.m + 1));
             curObj.$table.data().ins.setMoment(momentobj);
             _this.setDatePicker.call(_this, $(this), 'date');
+            e.preventDefault();
+            e.stopPropagation();
         });
 
         _this.$element.off('click', this.options.$yearShow);
-        _this.$element.on('click', this.options.$yearShow, function(){
+        _this.$element.on('click', this.options.$yearShow, function(e){
             _this.setDatePicker.call(_this, $(this), 'century');
+            e.preventDefault();
+            e.stopPropagation();
         });
         //bind century event
         _this.$element.off('click', `${this.options.$centuryJumpPrev}, ${this.options.$contentCentury} .previous`);
-        _this.$element.on('click', `${this.options.$centuryJumpPrev}, ${this.options.$contentCentury} .previous`, function(){
+        _this.$element.on('click', `${this.options.$centuryJumpPrev}, ${this.options.$contentCentury} .previous`, function(e){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var $table = $calendar.find(_this.options.$contentCentury);
             var $data =  $table.data();
@@ -912,11 +923,13 @@ class DateTimePicker {
             var year = dc.century.min - 100;
             $ins.setDC(year);
             _this.setYD($calendar.find(_this.options.$panel), dc);
+            e.preventDefault();
+            e.stopPropagation();
 
         });
 
         _this.$element.off('click', `${this.options.$centuryJumpNext}, ${this.options.$contentCentury} .next`);
-        _this.$element.on('click', `${this.options.$centuryJumpNext}, ${this.options.$contentCentury} .next`, function(){
+        _this.$element.on('click', `${this.options.$centuryJumpNext}, ${this.options.$contentCentury} .next`, function(e){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var $table = $calendar.find(_this.options.$contentCentury);
             var $data =  $table.data();
@@ -925,11 +938,13 @@ class DateTimePicker {
             var year = dc.century.max + 100;
             $ins.setDC(year);
             _this.setYD($calendar.find(_this.options.$panel), dc);
+            e.preventDefault();
+            e.stopPropagation();
 
         });
 
         _this.$element.off('click', `${this.options.$contentCentury} .current`);
-        _this.$element.on('click', `${this.options.$contentCentury} .current`, function(){
+        _this.$element.on('click', `${this.options.$contentCentury} .current`, function(e){
             var $calendar =  $(this).closest(_this.options.$calendar);
             var $table = $calendar.find(_this.options.$contentCentury);
             var $data =  $table.data();
@@ -940,6 +955,8 @@ class DateTimePicker {
             $ins.setDC(year);
             _this.setYD($calendar.find(_this.options.$panel), dc);
             _this.setDatePicker.call(_this, $(this), 'year');
+            e.preventDefault();
+            e.stopPropagation();
         });
 
     }
@@ -985,7 +1002,7 @@ class DateTimePicker {
         }
     }
     operateMomentArr(moment, type) {
-        console.log(moment)
+        //console.log(moment)
         this.momentArr.push({
             momentobj: moment,
             type: type
@@ -1014,7 +1031,7 @@ class DateTimePicker {
         el.text(y);
     }
     setInput(){
-        console.log(this.options.selectTime)
+        this.$trigger.addClass('has-value');
         var f = this.options.formatMap[this.options.format];
         this.options.selectTime.forEach((v, k)=>{
             var date = moment.isMoment(v) ? v.format(f) : v;
@@ -1061,9 +1078,7 @@ class DateTimePicker {
             $(this.$element.find(this.options.$input)[i])
                 .attr('placeholder', this.options.dateTimePlaceholder[i])
                 .val(idate);
-            $(this.$trigger.find(this.options.$pickerInput)[i])
-                .val(idate);
-
+            //this.$trigger.addClass()
             var m = this.momentArr[i].momentobj;
             var t = this.momentArr[i].type;
             //generate date
@@ -1227,6 +1242,9 @@ DateTimePicker.DEFAULTS = {
             content: '.be-calendar-month-cotent-wrapper'
         }
     },
+    $delete: '<div class="be-calendar-picker-delete">\
+        <i class="icon iconfont icon-calendar"></i>\
+    </div>',
     $pickerInput: '.be-calendar-picker-input',
     $input : '.be-calendar-input input',
     $calendarHead : '.be-calendar-header',
@@ -1320,7 +1338,7 @@ DateTimePicker.DEFAULTS = {
     $contentDay: '.be-calendar-day-cotent-wrapper'
 
 }
-console.log(DateTimePicker.DEFAULTS)
+//console.log(DateTimePicker.DEFAULTS)
 //new DateTimePicker().init();
 
 // DateTimePicker PLUGIN DEFINITION
@@ -1337,10 +1355,10 @@ function Plugin(option, param) {
             dateTimePlaceholder.push($(this).attr('placeholder'))
         })
         let options = $.extend({}, DateTimePicker.DEFAULTS, $this.data(), typeof option == 'object' && option);
-        console.log(dateTime)
+        //console.log(dateTime)
         options.dateTime = dateTime;
         options.dateTimePlaceholder = dateTimePlaceholder;
-        if (!data && options.toggle && /show|hide|select|enable|disable/.test(option)) options.toggle = false;
+        if (!data && options.toggle && /show|hide|select|delete|enable|disable/.test(option)) options.toggle = false;
         if (!data) $this.data('bs.calendar', (data = new DateTimePicker(this, options)));
         if (typeof option == 'string') data[option](param);
     })
@@ -1356,13 +1374,32 @@ $.fn.datetimepicker.noConflict = function () {
     return this;
 }
 
-$(document).on('click.bs.datatimepicker.data-api', '[data-toggle="datatimepicker"] .be-calendar-input-picker-wrapper', function(e){
-    var $this = $(this).closest('[data-toggle="datatimepicker"]');
-    if($this.hasClass('disabled')) return false;
-    var data = $this.data('bs.calendar');
-    var option = data ? 'toggle' : $this.data();
-    Plugin.call($this, option);
-    e.preventDefault();
-})
+$(document)
+    .on('click.bs.datatimepicker.data-api', '[data-toggle="datatimepicker"] .be-calendar-input-picker-wrapper', function(e){
+        var $this = $(this).closest('[data-toggle="datatimepicker"]');
+        if($this.hasClass('disabled')) return false;
+        var data = $this.data('bs.calendar');
+        var option = data ? 'toggle' : $this.data();
+        Plugin.call($this, option);
+        e.preventDefault();
+        e.stopPropagation();
+    })
+    .on('click.bs.datatimepicker.data-api', '[data-toggle="datatimepicker"].has-value .be-calendar-picker-delete', function(e){
+        var $this = $(this).closest('[data-toggle="datatimepicker"]');
+        if($this.hasClass('disabled')) return false;
+        Plugin.call($this, 'delete');
+        e.preventDefault();
+        e.stopPropagation();
+    })
+    .on('click.bs.datatimepicker.data-api', 'body', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('[data-toggle="datatimepicker"]').each(function(){
+            var $this = $(this);
+            if($this.data('bs.calendar')){
+                Plugin.call($this, 'hide');
+            }
+        })
+    })
 
 export default DateTimePicker;

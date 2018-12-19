@@ -1289,6 +1289,31 @@ input::-webkit-input-placeholder{
             }
         }
     }
+    .be-calendar-picker-delete{
+        position: absolute;
+        top: 0;
+        right: 11px;
+        height: 30px;
+        line-height: 30px;
+        .iconfont{
+            color: #d9d9d9;
+            &:before{
+                content: @icon-calendar;
+            }
+        }
+    }
+    &.has-value{
+        .be-calendar-picker-delete{
+            &:hover{
+                cursor: pointer;
+                .iconfont{
+                    &:before{
+                        content: @icon-close-circle-fill;
+                    }
+                }
+            }
+        }
+    }
 }
 .be-calendar{
     position:absolute;
@@ -1317,7 +1342,7 @@ input::-webkit-input-placeholder{
             color: rgba(0,0,0,.65);
         }
         .be-calendar-input{
-            padding: 6px 10px;
+            padding: 4px 10px;
             line-height: 24px;
             margin-right: 20px;
             position: relative;
