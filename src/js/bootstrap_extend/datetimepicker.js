@@ -1392,8 +1392,6 @@ $(document)
         e.stopPropagation();
     })
     .on('click.bs.datatimepicker.data-api', 'body', function(e){
-        e.preventDefault();
-        e.stopPropagation();
         $('[data-toggle="datatimepicker"]').each(function(){
             var $this = $(this);
             if($this.data('bs.calendar')){

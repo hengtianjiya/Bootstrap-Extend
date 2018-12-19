@@ -193,11 +193,11 @@ var old = $.fn.upload;
 $.fn.upload = Plugin;
 $.fn.upload.Constructor = Upload;
 
-$.fn.select.noConflict = function () {
+$.fn.upload.noConflict = function () {
     $.fn.upload = old;
     return this;
 }
-
+console.log(111);
 $(document)
     .on('change.bs.upload.data-api', '[data-upload="input"]', function (e) {
         var $this = $(this);

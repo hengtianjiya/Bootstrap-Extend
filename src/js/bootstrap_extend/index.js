@@ -63,6 +63,11 @@ $(document).ready(function () {
         console.log(data)
     })
 
+    $('.be-upload').on('loaderror.bs.upload', function (data) {
+        console.log('loaderror');
+        console.log(data)
+    })
+
     $('.be-upload').on('process.bs.upload', function (data) {
         console.log('process');
         console.log(data)
