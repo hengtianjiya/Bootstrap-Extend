@@ -7,6 +7,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js --color --progress --hot",
     "dev:static": "cross-env NODE_ENV=development gulp",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build:release": "cross-env NODE_ENV=production webpack --config webpack.release.config.js",
     "build:static": "cross-env NODE_ENV=production gulp"
   },
   "author": "",
@@ -52,6 +53,7 @@
     "art-template": "^4.13.1",
     "es3ify-webpack-plugin": "0.0.1",
     "es5-shim": "^4.5.12",
-    "export-from-ie8": "^1.0.5"
+    "export-from-ie8": "^1.0.5",
+    "idempotent-babel-polyfill": "^7.0.0"
   }
 }
