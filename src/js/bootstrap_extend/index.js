@@ -6,11 +6,18 @@ import Pagination from './pagination.js';
 import Loading from './loading.js';
 import Radio from './radio.js';
 import CheckBox from './checkbox.js';
-import DateTimePicker from './datetimepicker.js';
+import tmpl from './tmpl.js';
+import parseTmpl from './parseTmpl.js';
+
+var util = {
+    tmpl: tmpl,
+    parseTmpl: parseTmpl
+}
 
 class Common {
     constructor() {
         $.extend({
+            beUtil: util,
             beReplaceReg: /.*(?=#[^\s]*$)/,
             beTargetAttr: 'data-target',
             beHrefAttr: 'href',
