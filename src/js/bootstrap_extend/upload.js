@@ -29,6 +29,10 @@ class Upload {
         let _url = _this.options.url;
         let $iframe = $(`<iframe name="${_name}" />`);
         let $form = $(`<form method="post" style="display:none" target="${_name}" action="${_url}" name="form_${_name}" enctype="multipart/form-data" />`);
+        var csrf_token = $('meta[name="csrf-token"]');
+        if(csrf_token.length){
+            $(`<input type="hidden" name="_token" value="${csrf_token.attr('content')}">`).appendTo($form);
+        }
 
         _this.$trigger.appendTo($form);
         $(document.body).append($iframe).append($form);
@@ -133,7 +137,14 @@ class Upload {
                 };
             };
             formData.append("file", file);
+            formData.append("file", file);
             xhr.open("POST", _this.options.url, true);
+
+            var csrf_token = $('meta[name="csrf-token"]');
+            if(csrf_token.length){
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrf_token.attr('content'))
+            }
+            
             xhr.send(formData);
         }
     }
