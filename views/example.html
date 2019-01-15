@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/public/css/bootstrap.min.css">
     <link rel="stylesheet" href="/dist/css/bootstrap_extend_1546392648956.css">
     <!-- 项目 css 文件 -->
-    <link rel="stylesheet" href="/dist/css/index_1546392648956.css">
     <link rel="stylesheet" href="/public/icon/iconfont.css">
     <style>
         p{
@@ -89,7 +88,7 @@
                                 <p class="be-upload-hint">支持扩展名：.rar .zip .doc .docx .pdf .jpg...</p>
                             </div>
                             <div class="be-upload-result-wrapper hide">
-                                <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+                                <img src="" />
                                 <p class="be-upload-result-text"></p>
                             </div>
                         </div>
@@ -120,11 +119,6 @@
                     <input class="btn btn-success" type="button" value="Success">
                     <input class="btn btn-danger" type="button" value="Danger">
                     <input class="btn btn-warning" type="button" value="Warning">
-                </div>
-                <div>
-                    <p>Router</p>    
-                    <input class="btn btn-default be-btn-primary" type="button" id="J_one" value="Query with one parameter">
-                    <input class="btn btn-default be-btn-primary" type="button" id="J_two" value="Query with two parameter">
                 </div>
                 <div>
                     <p>Pagination</p>
@@ -318,10 +312,8 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/public/js/moment.min.js"></script>
 <script src="/public/js/bootstrap.js"></script>
-<script src="/dist/js/vendor.js?1546392648956"></script>
-<script src="/dist/js/bootstrap_extend.js?1546392648956"></script>
-<script src="/dist/js/common.js?1546392648956"></script>
-<script src="/dist/js/a.js?1546392648956"></script>
+<script src="/dist/js/bootstrap_extend.release.js?1546392648956"></script>
+<script src="/dist/js/datetimepicker.release.js?1546392648956"></script>
 <script>
 
 $(document).ready(function () {
@@ -386,14 +378,6 @@ $(document).ready(function () {
         })
     })
 
-    var path = $.bePath.setPathReg('/path/:path/user/:user?');
-    console.log(path.pathObj)
-    $('#J_one').on('click', function () {
-        path.toPath({ path: 456 });
-    })
-    $('#J_two').on('click', function () {
-        path.toPath({ path: 456, user: 789 });
-    })
     $(window).on('beRouteUpdate', function (e) {
         console.log(e.pathObj)
     })

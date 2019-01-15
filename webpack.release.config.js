@@ -98,6 +98,7 @@ function getEntry() {
 function getFolderMap(dirent, src, reg) {
     let mapPath = {};
     let result = reg.exec(dirent.name);
+    if(!result) return false;
     let fileName = result[1];
     let filePath = `${src}/${result[0]}`;
     if (fileName) {

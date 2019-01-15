@@ -14,9 +14,13 @@ class Select {
 		this.transitioning = null;
 		$.beAddAriaAndNarrowedClass(this.$element, this.$trigger, 'hover', 'blur');
 		if (this.options.toggle) this.toggle();
+		this.init();
 		this.bindEvent();
 	}
-
+	init(){
+		var chosed = this.$chosed.text();
+		this.$dropdown.find('[title="' + chosed + '"]').addClass('be-select-dropdown-item-selected');
+	}
 	bindEvent() {
 		var _this = this;
 		this.$dropdown.off('click.bs.select.item');
