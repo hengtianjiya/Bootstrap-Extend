@@ -50,10 +50,8 @@ class CheckBox {
     }
 
     select(valueArr) {
-        if (valueArr.length) {
-            this.result = valueArr;
-            this.check();
-        }
+        this.result = valueArr;
+        this.check();
     }
 
     disable() {

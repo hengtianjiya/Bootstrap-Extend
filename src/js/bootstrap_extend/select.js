@@ -19,7 +19,25 @@ class Select {
 	}
 	init(){
 		var chosed = this.$chosed.text();
-		this.$dropdown.find('[title="' + chosed + '"]').addClass('be-select-dropdown-item-selected');
+		if(chosed){
+			var $item = this.$dropdown.find('[title="' + chosed + '"]');
+			this.$dropdown.find('li').removeClass('be-select-dropdown-item-selected');
+			$item.addClass('be-select-dropdown-item-selected');
+			this.$chosedvalue = $item.attr('data-value');
+			this.$chosedcontent = chosed;
+			this.checkStatus();
+		}
+	}
+	select(value){
+		var $item = this.$dropdown.find('[data-value="' + value + '"]');
+		var content = $item.text();
+		this.$dropdown.find('li').removeClass('be-select-dropdown-item-selected');
+		$item.addClass('be-select-dropdown-item-selected');
+		this.$chosedvalue = value;
+		this.$chosedcontent = content;
+		this.$chosed.attr('data-value', value);
+		this.$chosed.text(content);
+		this.checkStatus();
 	}
 	bindEvent() {
 		var _this = this;
@@ -79,13 +97,14 @@ class Select {
 			$el.addClass('be-select-dropdown-item-selected');
 		}
 
-		if (this.$chosedvalue) {
+		if (this.$chosedcontent) {
 			this.$default
 				.removeClass('show')
 				.addClass('hide');
 			this.$chosed
 				.removeClass('hide')
 				.addClass('show')
+				.attr('data-value', this.$chosedvalue)
 				.text(this.$chosedcontent);
 		} else {
 			this.$default
@@ -186,15 +205,15 @@ Select.DEFAULTS = {
 // Select PLUGIN DEFINITION
 // ==========================
 
-function Plugin(option) {
+function Plugin(option, value) {
 	return this.each(function () {
 		let $this = $(this);
 		let data = $this.data('bs.select');
 		let options = $.extend({}, Select.DEFAULTS, $this.data(), typeof option == 'object' && option);
 
-		if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false;
+		if (!data && options.toggle && /show|hide|select/.test(option)) options.toggle = false;
 		if (!data) $this.data('bs.select', (data = new Select(this, options)));
-		if (typeof option == 'string') data[option]();
+		if (typeof option == 'string') data[option](value);
 	})
 }
 

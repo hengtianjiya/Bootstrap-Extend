@@ -30,7 +30,7 @@ class Radio {
     check() {
         let $radioes = this.$element.find(this.options.radio);
         $radioes.removeClass('checked');
-        this.$current.addClass('checked');
+        this.$current && this.$current.addClass('checked');
         let changeEvent = $.Event('changed.bs.radio', {
             value: this.result,
             el: this.$current
@@ -43,8 +43,11 @@ class Radio {
         if ($current.length) {
             this.$current = $current;
             this.result = value;
-            this.check();
+        }else{
+            this.$current = null;
+            this.result = null;
         }
+        this.check();
     }
 
     disable() {

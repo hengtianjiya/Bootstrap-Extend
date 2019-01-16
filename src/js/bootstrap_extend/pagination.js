@@ -228,7 +228,7 @@ var old = $.fn.pagination;
 $.fn.pagination = Plugin;
 $.fn.pagination.Constructor = Pagination;
 
-$.fn.select.noConflict = function () {
+$.fn.pagination.noConflict = function () {
     $.fn.pagination = old;
     return this;
 }
